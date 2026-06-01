@@ -298,6 +298,7 @@ def analisar_transcricao(texto: str, nome_arquivo: str) -> dict:
     texto_lower = texto.lower()
     linhas = texto.split("\n")
 
+    # ── Participantes ──────────────────────────────────────────────────────
     participantes = set()
     pat_nome_dois_pontos = re.compile(r"^([A-ZÁÉÍÓÚÀÃÕÂÊÎÔÛÇ][a-záéíóúàãõâêîôûç]+(?:\s[A-ZÁÉÍÓÚÀÃÕÂÊÎÔÛÇ][a-záéíóúàãõâêîôûç]+)*):")
     pat_colchetes = re.compile(r"\[([A-ZÁÉÍÓÚÀÃÕÂÊÎÔÛÇ][a-záéíóúàãõâêîôûç]+(?:\s[A-ZÁÉÍÓÚÀÃÕÂÊÎÔÛÇ][a-záéíóúàãõâêîôûç]+)*)\]")
@@ -324,11 +325,13 @@ def analisar_transcricao(texto: str, nome_arquivo: str) -> dict:
 
     participantes = list(participantes)[:20]
 
+    # ── Tópicos principais ────────────────────────────────────────────────
     topicos = []
     for kw, label in KEYWORDS_TOPICOS.items():
         if kw.lower() in texto_lower:
             topicos.append(label)
 
+    # ── Decisões ──────────────────────────────────────────────────────────
     marcadores_decisao = [
         "decidimos", "ficou definido", "ficou acordado", "aprovamos", "aprovado",
         "deliberamos", "concluímos", "foi decidido", "ficou estabelecido",
@@ -343,6 +346,7 @@ def analisar_transcricao(texto: str, nome_arquivo: str) -> dict:
             if len(s_clean) > 15:
                 decisoes.append(s_clean)
 
+    # ── Próximos passos ───────────────────────────────────────────────────
     marcadores_passos = [
         "próximos passos", "próxima etapa", "até o dia", "até o mês",
         "vai ficar responsável", "fica responsável", "encaminhamentos",
@@ -356,6 +360,7 @@ def analisar_transcricao(texto: str, nome_arquivo: str) -> dict:
             if len(s_clean) > 15:
                 proximos_passos.append(s_clean)
 
+    # ── Duração e contagem ────────────────────────────────────────────────
     total_palavras = len(texto.split())
     duracao_min = max(1, total_palavras // 130)
     duracao_estimada = f"{duracao_min} min"
@@ -397,19 +402,37 @@ def extrair_planos_sugeridos(texto: str) -> list:
         stop = {"O", "A", "Os", "As", "Um", "Uma", "De", "Do", "Da", "Dos", "Das", "Em",
                 "Para", "Com", "Por", "Que", "Se", "Não", "Na", "No"}
         nomes = [n for n in nomes if n not in stop and len(n) > 2]
-        return nomes[0] if nomes else "A definir"
+        return nomes[0] if nomes else ""
 
-    def inferir_prazo(sent: str) -> str:
-        m = re.search(r"\d{2}/\d{2}/\d{4}", sent)
+    def inferir_prazo_e_formatar(sent: str) -> tuple:
+        """Retorna (prazo_sugerido: str|None, prazo_display: str)"""
+        # Try DD/MM/YYYY or D/M/YYYY
+        m = re.search(r"\b(\d{1,2})/(\d{1,2})/(\d{4})\b", sent)
         if m:
-            return m.group(0)
-        m = re.search(r"até\s+\w+\s+de\s+\d{4}", sent, re.IGNORECASE)
-        if m:
-            return m.group(0)
-        m = re.search(r"até\s+o\s+dia\s+\d+", sent, re.IGNORECASE)
-        if m:
-            return m.group(0)
-        return "A definir"
+            dia, mes, ano = m.groups()
+            try:
+                d = date(int(ano), int(mes), int(dia))
+                return (d.isoformat(), f"{dia.zfill(2)}/{mes.zfill(2)}/{ano}")
+            except Exception:
+                pass
+
+        # Try "[dia] de [mês] de [ano]" (with optional "até")
+        meses = {
+            "janeiro": 1, "fevereiro": 2, "março": 3, "abril": 4, "maio": 5, "junho": 6,
+            "julho": 7, "agosto": 8, "setembro": 9, "outubro": 10, "novembro": 11, "dezembro": 12
+        }
+        for mes_nome, mes_num in meses.items():
+            pat2 = rf"\b(\d{{1,2}})\s+de\s+{mes_nome}\s+de\s+(\d{{4}})\b"
+            m2 = re.search(pat2, sent, re.IGNORECASE)
+            if m2:
+                dia, ano = m2.groups()
+                try:
+                    d = date(int(ano), mes_num, int(dia))
+                    return (d.isoformat(), f"{dia.zfill(2)}/{str(mes_num).zfill(2)}/{ano}")
+                except Exception:
+                    pass
+
+        return (None, "A definir")
 
     def inferir_prioridade(sent: str) -> str:
         sl = sent.lower()
@@ -418,6 +441,36 @@ def extrair_planos_sugeridos(texto: str) -> list:
         if any(k in sl for k in ["importante", "prioritário"]):
             return "alta"
         return "media"
+
+    def limpar_titulo(titulo: str) -> str:
+        """Limpa o título removendo caracteres iniciais e melhorando formato"""
+        titulo = re.sub(r"^[\-\•\*\s\d\.]+", "", titulo).strip()
+        if titulo:
+            titulo = titulo[0].upper() + titulo[1:]
+        if len(titulo) > 80:
+            truncado = titulo[:80]
+            ult_espaco = truncado.rfind(" ")
+            if ult_espaco > 50:
+                titulo = truncado[:ult_espaco]
+            else:
+                titulo = truncado
+        verbos_inicio = ["implementar", "revisar", "adaptar", "verificar", "analisar",
+                         "criar", "atualizar", "definir", "configurar", "mapear"]
+        primeira_palavra = titulo.split()[0].lower() if titulo.split() else ""
+        if primeira_palavra not in verbos_inicio and not any(v in primeira_palavra for v in ["adequa", "ajust", "modific"]):
+            titulo_lower = titulo.lower()
+            if any(k in titulo_lower for k in ["erp", "sistema", "software", "plataforma"]):
+                titulo = "Adaptar: " + titulo
+            else:
+                titulo = "Implementar: " + titulo
+        return titulo
+
+    def melhorar_descricao(descricao: str, titulo: str) -> str:
+        """Melhora a descrição removendo redundâncias e adicionando contexto"""
+        descricao = re.sub(r"\s+", " ", descricao).strip()
+        if descricao.lower().strip() == titulo.lower().strip():
+            descricao = "Atividade identificada na reunião. Definir escopo, responsável e prazo em alinhamento com o time."
+        return descricao
 
     candidatos = []
     for i, sent in enumerate(sentencas):
@@ -431,17 +484,22 @@ def extrair_planos_sugeridos(texto: str) -> list:
 
     planos = []
     for idx_plano, (n_verbos, i, sent) in enumerate(candidatos):
-        titulo = sent[:80].strip()
-        if len(titulo) < 20:
+        titulo_bruto = sent[:150].strip()
+        if len(titulo_bruto) < 20:
             continue
+        titulo_limpo = limpar_titulo(titulo_bruto)
+        prazo_sugerido, prazo_display = inferir_prazo_e_formatar(sent)
+        descricao_bruta = sent[:500].strip()
+        descricao_final = melhorar_descricao(descricao_bruta, titulo_limpo)
         planos.append({
             "idx": idx_plano,
-            "titulo": titulo,
+            "titulo": titulo_limpo,
             "area": inferir_area(sent),
             "responsavel": inferir_responsavel(sentencas, i),
-            "prazo": inferir_prazo(sent),
+            "prazo_sugerido": prazo_sugerido,
+            "prazo_display": prazo_display,
             "prioridade": inferir_prioridade(sent),
-            "descricao": sent[:500].strip(),
+            "descricao": descricao_final,
             "trecho_origem": sent[:200].strip(),
             "status": "pendente",
         })
@@ -681,7 +739,7 @@ def aprovar_plano_sugerido(reuniao_id: int, plano_idx: int):
         "titulo": plano_sug["titulo"],
         "area": plano_sug["area"],
         "responsavel": plano_sug["responsavel"],
-        "prazo": plano_sug["prazo"],
+        "prazo": plano_sug.get("prazo_display", plano_sug.get("prazo", "A definir")),
         "status": "pendente",
         "prioridade": plano_sug["prioridade"],
         "descricao": plano_sug["descricao"],
@@ -708,6 +766,45 @@ def rejeitar_plano_sugerido(reuniao_id: int, plano_idx: int):
             return {"ok": True}
 
     raise HTTPException(status_code=404, detail="Plano sugerido não encontrado")
+
+
+@app.patch("/api/reunioes/{reuniao_id}/sugestao/{plano_idx}")
+def editar_sugestao(reuniao_id: int, plano_idx: int, update: dict):
+    """Editar campos de uma sugestão antes de aprovar"""
+    reuniao = None
+    for r in REUNIOES:
+        if r["id"] == reuniao_id:
+            reuniao = r
+            break
+    if not reuniao:
+        raise HTTPException(status_code=404, detail="Reunião não encontrada")
+
+    plano_sug = None
+    for p in reuniao["planos_sugeridos"]:
+        if p["idx"] == plano_idx:
+            plano_sug = p
+            break
+    if not plano_sug:
+        raise HTTPException(status_code=404, detail="Plano sugerido não encontrado")
+
+    campos_permitidos = ["titulo", "area", "responsavel", "prazo_sugerido", "prioridade", "descricao"]
+    for campo in campos_permitidos:
+        if campo in update:
+            plano_sug[campo] = update[campo]
+
+    if "prazo_sugerido" in update:
+        prazo = update["prazo_sugerido"]
+        if prazo and prazo != "":
+            try:
+                d = datetime.strptime(prazo, "%Y-%m-%d")
+                plano_sug["prazo_display"] = d.strftime("%d/%m/%Y")
+            except Exception:
+                plano_sug["prazo_display"] = prazo
+        else:
+            plano_sug["prazo_sugerido"] = None
+            plano_sug["prazo_display"] = "A definir"
+
+    return plano_sug
 
 
 # ─── STATIC FILES + SPA ──────────────────────────────────────────────────────
