@@ -29,6 +29,8 @@
     --orange-dim: rgba(240,136,62,0.15);
   }
   body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); display: flex; height: 100vh; overflow: hidden; font-size: 14px; }
+
+  /* SIDEBAR */
   #sidebar { width: var(--sidebar-w); background: var(--surface); border-right: 1px solid var(--border); display: flex; flex-direction: column; flex-shrink: 0; }
   .sidebar-logo { padding: 18px 16px 14px; border-bottom: 1px solid var(--border); }
   .sidebar-logo h1 { font-size: 13px; font-weight: 700; color: var(--accent); letter-spacing: 0.5px; }
@@ -39,13 +41,19 @@
   nav button:hover { background: var(--surface2); color: var(--text); }
   nav button.active { background: var(--accent-dim); color: var(--accent); font-weight: 600; border-right: 3px solid var(--accent); }
   .sidebar-footer { padding: 12px 16px; border-top: 1px solid var(--border); font-size: 11px; color: var(--text-muted); }
+
+  /* MAIN */
   #main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
   .topbar { height: 52px; background: var(--surface); border-bottom: 1px solid var(--border); display: flex; align-items: center; padding: 0 24px; gap: 12px; flex-shrink: 0; }
   .topbar h2 { font-size: 16px; font-weight: 600; flex: 1; }
   .topbar-badge { background: var(--red-dim); color: var(--red); border: 1px solid var(--red); border-radius: 10px; font-size: 11px; font-weight: 600; padding: 2px 10px; }
   #content { flex: 1; overflow-y: auto; padding: 24px; }
+
+  /* SECTIONS */
   .section { display: none; }
   .section.active { display: block; }
+
+  /* KPI CARDS */
   .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px,1fr)); gap: 16px; margin-bottom: 24px; }
   .kpi-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; }
   .kpi-card .kpi-label { font-size: 12px; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
@@ -54,12 +62,15 @@
   .kpi-card.yellow .kpi-value { color: var(--accent); }
   .kpi-card.blue .kpi-value { color: var(--blue); }
   .kpi-card.red .kpi-value { color: var(--red); }
-  .kpi-card.orange .kpi-value { color: var(--orange); }
+
+  /* PROGRESS */
   .progress-section { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; margin-bottom: 24px; }
   .progress-section h3 { font-size: 13px; color: var(--text-muted); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
   .progress-bar-bg { background: var(--surface2); border-radius: 4px; height: 10px; overflow: hidden; }
   .progress-bar-fill { height: 100%; border-radius: 4px; background: linear-gradient(90deg, var(--green), var(--accent)); transition: width 1s ease; }
   .progress-label { margin-top: 8px; font-size: 12px; color: var(--text-muted); }
+
+  /* TIMELINE */
   .timeline { position: relative; }
   .timeline::before { content: ''; position: absolute; left: 52px; top: 0; bottom: 0; width: 2px; background: var(--border); }
   .timeline-item { display: flex; gap: 0; margin-bottom: 20px; position: relative; }
@@ -93,6 +104,8 @@
   .marco-item.critico { background: var(--red-dim); border: 1px solid var(--red); }
   .marco-date { font-weight: 700; color: var(--accent); white-space: nowrap; }
   .marco-critico-badge { color: var(--red); font-weight: 700; }
+
+  /* UPDATES */
   .updates-grid { display: flex; flex-direction: column; gap: 16px; }
   .update-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; }
   .update-card.urgencia-alta { border-left: 4px solid var(--red); }
@@ -109,6 +122,8 @@
   .badge-urgencia-media { background: var(--yellow-dim); color: var(--yellow); border: 1px solid var(--yellow); }
   .badge-urgencia-baixa { background: var(--green-dim); color: var(--green); border: 1px solid var(--green); }
   .badge-decolar { background: var(--accent-dim); color: var(--accent); border: 1px solid var(--accent); }
+
+  /* PLANOS */
   .planos-toolbar { display: flex; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; align-items: center; }
   .planos-toolbar select { background: var(--surface); border: 1px solid var(--border); color: var(--text); padding: 6px 10px; border-radius: 6px; font-size: 13px; }
   .btn { padding: 7px 14px; border-radius: 6px; border: none; cursor: pointer; font-size: 13px; font-weight: 600; transition: opacity 0.15s; }
@@ -130,6 +145,8 @@
   .badge-status-concluido { background: var(--green-dim); color: var(--green); border: 1px solid var(--green); }
   .badge-status-bloqueado { background: var(--red-dim); color: var(--red); border: 1px solid var(--red); }
   .status-select { background: var(--surface2); border: 1px solid var(--border); color: var(--text); padding: 4px 8px; border-radius: 6px; font-size: 12px; }
+
+  /* MODAL */
   .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); display: flex; align-items: center; justify-content: center; z-index: 1000; display: none; }
   .modal-overlay.open { display: flex; }
   .modal { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; width: 560px; max-width: 95vw; max-height: 90vh; overflow-y: auto; }
@@ -141,6 +158,8 @@
   .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--blue); }
   .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
   .modal-actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px; }
+
+  /* DASHBOARD EXTRAS */
   .section-title { font-size: 13px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; }
   .dash-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
   @media (max-width: 700px) { .dash-grid { grid-template-columns: 1fr; } }
@@ -164,9 +183,21 @@
   .empty-state .empty-icon { font-size: 40px; margin-bottom: 10px; }
   .spinner { display: inline-block; width: 20px; height: 20px; border: 2px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.7s linear infinite; }
   @keyframes spin { to { transform: rotate(360deg); } }
+
   /* REUNIOES */
-  .reuniao-upload-zone { border: 2px dashed var(--border); border-radius: 10px; padding: 24px; text-align: center; cursor: pointer; transition: border-color 0.2s, background 0.2s; margin-bottom: 16px; }
-  .reuniao-upload-zone:hover, .reuniao-upload-zone.drag-over { border-color: var(--accent); background: var(--accent-dim); }
+  .reuniao-upload-zone {
+    border: 2px dashed var(--border);
+    border-radius: 10px;
+    padding: 24px;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+    margin-bottom: 16px;
+  }
+  .reuniao-upload-zone:hover, .reuniao-upload-zone.drag-over {
+    border-color: var(--accent);
+    background: var(--accent-dim);
+  }
   .reuniao-upload-zone .upload-icon { font-size: 28px; margin-bottom: 8px; }
   .reuniao-upload-zone .upload-title { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
   .reuniao-upload-zone .upload-sub { font-size: 12px; color: var(--text-muted); }
@@ -180,14 +211,24 @@
   .reuniao-card-name { font-size: 13px; font-weight: 600; margin-bottom: 4px; word-break: break-all; }
   .reuniao-card-date { font-size: 11px; color: var(--text-muted); }
   .badge-pendentes-sugestoes { background: var(--orange-dim); color: var(--orange); border: 1px solid var(--orange); border-radius: 10px; font-size: 10px; font-weight: 600; padding: 1px 7px; margin-left: 6px; }
-  .plano-sugerido { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px; margin-bottom: 12px; transition: opacity 0.3s; }
-  .plano-sugerido.rejeitado { opacity: 0.45; }
-  .plano-sugerido .plano-header { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
-  .plano-sugerido .plano-titulo { font-size: 14px; font-weight: 600; flex: 1; }
-  .plano-sugerido .plano-meta { display: flex; gap: 16px; font-size: 12px; color: var(--text-muted); margin-bottom: 10px; flex-wrap: wrap; }
-  .plano-sugerido .plano-desc { font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-bottom: 10px; }
-  .plano-sugerido .trecho { font-style: italic; color: var(--text-muted); font-size: 12px; border-left: 3px solid var(--accent); padding-left: 10px; margin: 10px 0; }
-  .plano-sugerido .plano-actions { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  /* ── Planos Sugeridos ─────────────────────────────────────────────── */
+  .plano-sugerido { background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: 10px; padding: 18px 20px; margin-bottom: 14px; transition: opacity 0.3s; }
+  .plano-sugerido.rejeitado { opacity: 0.4; border-left-color: var(--gray); }
+  .plano-sugerido.aprovado { border-left-color: var(--green); }
+  .plano-sugerido.prioridade-critica { border-left-color: var(--red); }
+  .plano-sugerido.prioridade-alta { border-left-color: var(--orange); }
+  .plano-sugerido.prioridade-media { border-left-color: var(--accent); }
+  .plano-sugerido.prioridade-baixa { border-left-color: var(--green); }
+  .plano-sugerido .ps-top { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .plano-sugerido .ps-titulo { font-size: 15px; font-weight: 700; color: var(--text); margin: 0 0 14px 0; }
+  .plano-sugerido .ps-fields { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 14px; background: var(--surface2); border-radius: 8px; padding: 12px; }
+  .plano-sugerido .ps-field label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); display: block; margin-bottom: 3px; }
+  .plano-sugerido .ps-field span { font-size: 13px; color: var(--text); font-weight: 500; }
+  .plano-sugerido .ps-desc { font-size: 13px; color: var(--text-muted); line-height: 1.55; margin-bottom: 12px; }
+  .plano-sugerido .ps-trecho { font-style: italic; color: var(--text-muted); font-size: 12px; border-left: 3px solid var(--accent); padding: 6px 10px; margin-bottom: 14px; background: var(--accent-dim); border-radius: 0 6px 6px 0; }
+  .plano-sugerido .ps-actions { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .btn-editar-sugestao { background: var(--surface2); color: var(--blue); border: 1px solid var(--blue); border-radius: 6px; padding: 8px 14px; cursor: pointer; font-size: 13px; font-weight: 600; }
+  .btn-editar-sugestao:hover { background: var(--blue-dim); }
   .btn-aprovar { background: var(--green); color: #000; border: none; border-radius: 6px; padding: 8px 16px; cursor: pointer; font-weight: 600; font-size: 13px; }
   .btn-aprovar:hover { opacity: 0.85; }
   .btn-rejeitar { background: var(--surface2); color: var(--text-muted); border: 1px solid var(--border); border-radius: 6px; padding: 8px 16px; cursor: pointer; font-size: 13px; }
@@ -201,14 +242,17 @@
   .summary-section h4 { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); margin-bottom: 6px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
   .summary-section ul { list-style: none; padding: 0; }
   .summary-section ul li { font-size: 13px; color: var(--text); padding: 3px 0; padding-left: 14px; position: relative; }
-  .summary-section ul li::before { content: '\u2022'; position: absolute; left: 0; color: var(--accent); }
+  .summary-section ul li::before { content: '\2022'; position: absolute; left: 0; color: var(--accent); }
   .summary-footer { display: flex; gap: 20px; font-size: 12px; color: var(--text-muted); padding-top: 12px; border-top: 1px solid var(--border); margin-top: 14px; }
   .sugeridos-header { font-size: 15px; font-weight: 700; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
   .badge-nav-pendentes { background: var(--orange-dim); color: var(--orange); border: 1px solid var(--orange); border-radius: 10px; font-size: 10px; font-weight: 600; padding: 1px 7px; }
+  .kpi-card.orange .kpi-value { color: var(--orange); }
   .upload-progress { text-align: center; padding: 12px; color: var(--text-muted); font-size: 13px; display: flex; align-items: center; justify-content: center; gap: 8px; }
 </style>
 </head>
 <body>
+
+<!-- SIDEBAR -->
 <aside id="sidebar">
   <div class="sidebar-logo">
     <h1>✈️ Reforma Tributária</h1>
@@ -227,12 +271,16 @@
     ⚠️ Próx. marco: <strong>01/08/2026</strong>
   </div>
 </aside>
+
+<!-- MAIN CONTENT -->
 <div id="main">
   <header class="topbar">
     <h2 id="topbar-title">Dashboard</h2>
     <span class="topbar-badge">🚨 Deadline: 1 ago 2026</span>
   </header>
   <div id="content">
+
+    <!-- ═══════════════ DASHBOARD ═══════════════ -->
     <div id="section-dashboard" class="section active">
       <div id="alert-container"></div>
       <div class="kpi-grid" id="kpi-grid">
@@ -241,36 +289,54 @@
         <div class="kpi-card blue"><div class="kpi-label">Pendentes</div><div class="kpi-value" id="kpi-pendentes"><span class="spinner"></span></div></div>
         <div class="kpi-card red"><div class="kpi-label">Planos Críticos</div><div class="kpi-value" id="kpi-criticos"><span class="spinner"></span></div></div>
       </div>
+
       <div class="progress-section">
         <h3>📈 Progresso Geral da Reforma</h3>
         <div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-fill" style="width:0%"></div></div>
         <div class="progress-label" id="progress-label">Carregando...</div>
       </div>
+
       <div class="dash-grid">
         <div>
           <div class="section-title">🚨 Próximos Marcos Críticos</div>
-          <div id="dash-marcos"><div class="empty-state"><div class="spinner"></div></div></div>
+          <div id="dash-marcos">
+            <div class="empty-state"><div class="spinner"></div></div>
+          </div>
         </div>
         <div>
           <div class="section-title">📰 Últimas Atualizações</div>
-          <div id="dash-updates"><div class="empty-state"><div class="spinner"></div></div></div>
+          <div id="dash-updates">
+            <div class="empty-state"><div class="spinner"></div></div>
+          </div>
         </div>
       </div>
     </div>
+
+    <!-- ═══════════════ TIMELINE ═══════════════ -->
     <div id="section-timeline" class="section">
       <div id="timeline-container" class="timeline">
         <div class="empty-state"><div class="spinner"></div><p style="margin-top:12px">Carregando timeline...</p></div>
       </div>
     </div>
+
+    <!-- ═══════════════ ATUALIZAÇÕES ═══════════════ -->
     <div id="section-atualizacoes" class="section">
       <div id="updates-container" class="updates-grid">
         <div class="empty-state"><div class="spinner"></div><p style="margin-top:12px">Carregando atualizações...</p></div>
       </div>
     </div>
+
+    <!-- ═══════════════ REUNIÕES ═══════════════ -->
     <div id="section-reunioes" class="section">
       <div class="reunioes-layout" id="reunioes-layout">
+        <!-- SIDEBAR: upload + lista -->
         <div class="reunioes-sidebar">
-          <div class="reuniao-upload-zone" id="upload-zone" onclick="document.getElementById('file-input').click()" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event)">
+          <!-- Upload Zone -->
+          <div class="reuniao-upload-zone" id="upload-zone"
+               onclick="document.getElementById('file-input').click()"
+               ondragover="handleDragOver(event)"
+               ondragleave="handleDragLeave(event)"
+               ondrop="handleDrop(event)">
             <div class="upload-icon">📁</div>
             <div class="upload-title">Carregar transcrição</div>
             <div class="upload-sub">.txt, .pdf ou .docx</div>
@@ -278,20 +344,34 @@
             <div id="upload-filename" class="reuniao-upload-filename" style="display:none"></div>
           </div>
           <input type="file" id="file-input" accept=".txt,.pdf,.docx" style="display:none" onchange="handleFileSelect(event)"/>
-          <div id="upload-progress" class="upload-progress" style="display:none"><span class="spinner"></span> Analisando transcrição...</div>
+          <div id="upload-progress" class="upload-progress" style="display:none">
+            <span class="spinner"></span> Analisando transcrição...
+          </div>
           <button id="btn-analisar" class="btn btn-primary" style="width:100%;margin-bottom:16px;display:none" onclick="iniciarUpload()">🔍 Analisar</button>
+
+          <!-- Lista de reuniões -->
           <div class="section-title">REUNIÕES CARREGADAS</div>
-          <div id="lista-reunioes"><div class="empty-state" style="padding:20px"><div class="spinner"></div></div></div>
+          <div id="lista-reunioes">
+            <div class="empty-state" style="padding:20px">
+              <div class="spinner"></div>
+            </div>
+          </div>
         </div>
+
+        <!-- DETAIL: resumo + planos sugeridos -->
         <div class="reuniao-detail" id="reuniao-detail">
           <div id="reuniao-empty" class="empty-state" style="padding:60px 40px">
             <div class="empty-icon">📋</div>
             <p>Selecione uma reunião para ver o resumo<br/>ou faça upload de uma transcrição.</p>
           </div>
-          <div id="reuniao-content" style="display:none"></div>
+          <div id="reuniao-content" style="display:none">
+            <!-- Preenchido por renderDetalheReuniao() -->
+          </div>
         </div>
       </div>
     </div>
+
+    <!-- ═══════════════ PLANOS ═══════════════ -->
     <div id="section-planos" class="section">
       <div class="planos-toolbar">
         <button class="btn btn-primary" onclick="openModal()">+ Novo Plano</button>
@@ -312,47 +392,164 @@
       </div>
       <div style="overflow-x:auto">
         <table class="planos-table">
-          <thead><tr><th>Título</th><th>Área</th><th>Responsável</th><th>Prazo</th><th>Status</th><th>Prioridade</th><th>Ações</th></tr></thead>
-          <tbody id="planos-tbody"><tr><td colspan="7" style="text-align:center;padding:24px;color:var(--text-muted)"><span class="spinner"></span></td></tr></tbody>
+          <thead>
+            <tr>
+              <th>Título</th>
+              <th>Área</th>
+              <th>Responsável</th>
+              <th>Prazo</th>
+              <th>Status</th>
+              <th>Prioridade</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody id="planos-tbody">
+            <tr><td colspan="7" style="text-align:center;padding:24px;color:var(--text-muted)"><span class="spinner"></span></td></tr>
+          </tbody>
         </table>
       </div>
     </div>
-  </div>
+
+  </div><!-- /content -->
 </div>
+
+<!-- ═══════════════ MODAL ═══════════════ -->
 <div class="modal-overlay" id="modal-overlay">
   <div class="modal">
     <h3 id="modal-title">Novo Plano de Ação</h3>
     <form id="plano-form" onsubmit="submitPlano(event)">
       <input type="hidden" id="edit-id" value=""/>
-      <div class="form-group"><label>Título *</label><input type="text" id="f-titulo" required placeholder="Descrição breve do plano"/></div>
-      <div class="form-row">
-        <div class="form-group"><label>Área *</label><input type="text" id="f-area" required placeholder="TI / Fiscal / Jurídico..."/></div>
-        <div class="form-group"><label>Responsável *</label><input type="text" id="f-responsavel" required placeholder="Time ou pessoa"/></div>
+      <div class="form-group">
+        <label>Título *</label>
+        <input type="text" id="f-titulo" required placeholder="Descrição breve do plano"/>
       </div>
       <div class="form-row">
-        <div class="form-group"><label>Prazo *</label><input type="date" id="f-prazo" required/></div>
-        <div class="form-group"><label>Step Relacionado</label><select id="f-step"><option value="">-- nenhum --</option></select></div>
+        <div class="form-group">
+          <label>Área *</label>
+          <input type="text" id="f-area" required placeholder="TI / Fiscal / Jurídico..."/>
+        </div>
+        <div class="form-group">
+          <label>Responsável *</label>
+          <input type="text" id="f-responsavel" required placeholder="Time ou pessoa"/>
+        </div>
       </div>
       <div class="form-row">
-        <div class="form-group"><label>Status</label><select id="f-status"><option value="pendente">Pendente</option><option value="em_andamento">Em Andamento</option><option value="concluido">Concluído</option><option value="bloqueado">Bloqueado</option></select></div>
-        <div class="form-group"><label>Prioridade</label><select id="f-prioridade"><option value="baixa">Baixa</option><option value="media">Média</option><option value="alta">Alta</option><option value="critica">Crítica</option></select></div>
+        <div class="form-group">
+          <label>Prazo *</label>
+          <input type="date" id="f-prazo" required/>
+        </div>
+        <div class="form-group">
+          <label>Step Relacionado</label>
+          <select id="f-step">
+            <option value="">-- nenhum --</option>
+          </select>
+        </div>
       </div>
-      <div class="form-group"><label>Descrição</label><textarea id="f-descricao" placeholder="Detalhamento do plano..."></textarea></div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Status</label>
+          <select id="f-status">
+            <option value="pendente">Pendente</option>
+            <option value="em_andamento">Em Andamento</option>
+            <option value="concluido">Concluído</option>
+            <option value="bloqueado">Bloqueado</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Prioridade</label>
+          <select id="f-prioridade">
+            <option value="baixa">Baixa</option>
+            <option value="media">Média</option>
+            <option value="alta">Alta</option>
+            <option value="critica">Crítica</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Descrição</label>
+        <textarea id="f-descricao" placeholder="Detalhamento do plano..."></textarea>
+      </div>
       <div class="modal-actions">
         <button type="button" class="btn btn-ghost" onclick="closeModal()">Cancelar</button>
         <button type="submit" class="btn btn-primary">Salvar Plano</button>
       </div>
     </form>
   </div>
+<!-- ═══════════════ MODAL EDIÇÃO DE SUGESTÃO ═══════════════ -->
+<div class="modal-overlay" id="modal-sugestao-overlay">
+  <div class="modal">
+    <h3>✏️ Editar Sugestão de Plano</h3>
+    <p style="font-size:12px;color:var(--text-muted);margin-bottom:18px">
+      Ajuste os campos antes de aprovar o plano de ação.
+    </p>
+    <input type="hidden" id="sug-reuniao-id"/>
+    <input type="hidden" id="sug-plano-idx"/>
+    
+    <div class="form-group">
+      <label>Título da Atividade *</label>
+      <input type="text" id="sug-titulo" required placeholder="Descreva a atividade em imperativo..."/>
+    </div>
+    
+    <div class="form-row">
+      <div class="form-group">
+        <label>Área / Time Responsável</label>
+        <input type="text" id="sug-area" placeholder="TI / Fiscal / Jurídico..."/>
+      </div>
+      <div class="form-group">
+        <label>Responsável</label>
+        <input type="text" id="sug-responsavel" placeholder="Nome ou time"/>
+      </div>
+    </div>
+    
+    <div class="form-row">
+      <div class="form-group">
+        <label>Prazo</label>
+        <input type="date" id="sug-prazo" />
+        <small style="color:var(--text-muted);font-size:11px">Deixe em branco para "A definir"</small>
+      </div>
+      <div class="form-group">
+        <label>Prioridade</label>
+        <select id="sug-prioridade">
+          <option value="critica">🔴 Crítica</option>
+          <option value="alta">🟠 Alta</option>
+          <option value="media" selected>🟡 Média</option>
+          <option value="baixa">🟢 Baixa</option>
+        </select>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label>Descrição da Atividade</label>
+      <textarea id="sug-descricao" rows="3" placeholder="Detalhe o escopo, objetivo e critério de conclusão..."></textarea>
+    </div>
+    
+    <div class="modal-actions">
+      <button type="button" class="btn btn-ghost" onclick="fecharModalSugestao()">Cancelar</button>
+      <button type="button" class="btn btn-ghost" onclick="salvarSugestao()">💾 Salvar alterações</button>
+      <button type="button" class="btn btn-primary" onclick="salvarEAprovar()">✅ Salvar e Aprovar</button>
+    </div>
+  </div>
 </div>
+
+</div>
+
 <script>
+// ── STATE ─────────────────────────────────────────────────────────────────────
 let steps = [], atualizacoes = [], planos = [], stats = {};
 let currentSection = 'dashboard';
 let loaded = { dashboard: false, timeline: false, atualizacoes: false, planos: false, reunioes: false };
 let reuniaoAtualId = null;
 let reunioes = [];
 let selectedFile = null;
-const SECTION_TITLES = { dashboard: 'Dashboard', timeline: '🗺️ Timeline da Reforma', atualizacoes: '📰 Atualizações Normativas', planos: '✅ Planos de Ação Decolar', reunioes: '📋 Reuniões' };
+
+// ── NAVIGATION ────────────────────────────────────────────────────────────────
+const SECTION_TITLES = {
+  dashboard: 'Dashboard',
+  timeline: '🗺️ Timeline da Reforma',
+  atualizacoes: '📰 Atualizações Normativas',
+  planos: '✅ Planos de Ação Decolar',
+  reunioes: '📋 Reuniões'
+};
 function showSection(name) {
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
@@ -370,14 +567,20 @@ function loadSection(name) {
   else if (name === 'planos') loadPlanos();
   else if (name === 'reunioes') carregarListaReunioes();
 }
+
+// ── FETCH HELPERS ─────────────────────────────────────────────────────────────
 async function api(path, opts = {}) {
   const r = await fetch('/api' + path, opts);
   if (!r.ok) throw new Error(await r.text());
   return r.json();
 }
+
+// ── DASHBOARD ─────────────────────────────────────────────────────────────────
 async function loadDashboard() {
   try {
-    [stats, atualizacoes, planos] = await Promise.all([api('/stats'), api('/atualizacoes'), api('/planos')]);
+    [stats, atualizacoes, planos] = await Promise.all([
+      api('/stats'), api('/atualizacoes'), api('/planos')
+    ]);
     renderDashboard();
   } catch(e) { console.error(e); }
 }
@@ -386,34 +589,62 @@ function renderDashboard() {
   document.getElementById('kpi-andamento').textContent = stats.steps_em_andamento;
   document.getElementById('kpi-pendentes').textContent = stats.steps_pendentes;
   document.getElementById('kpi-criticos').textContent = stats.planos_criticos;
+
   if (stats.planos_sugeridos_pendentes !== undefined) {
     let kpiSug = document.getElementById('kpi-sugestoes');
     if (!kpiSug) {
+      const kpiGrid = document.getElementById('kpi-grid');
       const div = document.createElement('div');
       div.className = 'kpi-card orange';
       div.id = 'kpi-card-sugestoes';
       div.innerHTML = '<div class="kpi-label">📋 Sugestões Pendentes</div><div class="kpi-value" id="kpi-sugestoes">0</div>';
-      document.getElementById('kpi-grid').appendChild(div);
+      kpiGrid.appendChild(div);
       kpiSug = document.getElementById('kpi-sugestoes');
     }
     kpiSug.textContent = stats.planos_sugeridos_pendentes;
   }
   const navBadge = document.getElementById('badge-sugestoes-nav');
-  if (navBadge && stats.planos_sugeridos_pendentes > 0) { navBadge.textContent = stats.planos_sugeridos_pendentes; navBadge.style.display = 'inline-block'; }
-  else if (navBadge) { navBadge.style.display = 'none'; }
+  if (navBadge && stats.planos_sugeridos_pendentes > 0) {
+    navBadge.textContent = stats.planos_sugeridos_pendentes;
+    navBadge.style.display = 'inline-block';
+  } else if (navBadge) {
+    navBadge.style.display = 'none';
+  }
+
   const total = (stats.steps_concluidos||0) + (stats.steps_em_andamento||0) + (stats.steps_pendentes||0);
   const pct = total > 0 ? Math.round(((stats.steps_concluidos||0) / total) * 100) : 0;
   document.getElementById('progress-fill').style.width = pct + '%';
   document.getElementById('progress-label').textContent = `${pct}% concluído — ${stats.steps_concluidos} de ${total} etapas`;
+
   const today = new Date(); today.setHours(0,0,0,0);
-  const vencidos = planos.filter(p => { if (p.status === 'concluido') return false; return p.prazo && new Date(p.prazo + 'T00:00:00') < today; });
+  const vencidos = planos.filter(p => {
+    if (p.status === 'concluido') return false;
+    return p.prazo && new Date(p.prazo + 'T00:00:00') < today;
+  });
   const alertEl = document.getElementById('alert-container');
-  if (vencidos.length > 0) alertEl.innerHTML = `<div class="alert-box"><span class="alert-icon">⚠️</span><span class="alert-text"><strong>${vencidos.length} plano(s) com prazo vencido!</strong> Verifique os Planos de Ação.</span></div>`;
+  if (vencidos.length > 0) {
+    alertEl.innerHTML = `<div class="alert-box"><span class="alert-icon">⚠️</span><span class="alert-text"><strong>${vencidos.length} plano(s) com prazo vencido!</strong> Verifique os Planos de Ação.</span></div>`;
+  }
+
   const marcosEl = document.getElementById('dash-marcos');
-  if (!stats.proximos_marcos || stats.proximos_marcos.length === 0) { marcosEl.innerHTML = '<p style="color:var(--text-muted);font-size:13px">Nenhum marco próximo.</p>'; }
-  else { marcosEl.innerHTML = stats.proximos_marcos.map(m => { const dl = m.days_left; const overdue = dl < 0; const label = overdue ? 'atrasado' : (dl === 0 ? 'hoje' : 'dias'); const val = overdue ? Math.abs(dl) : dl; return `<div class="marco-dash-card"><div class="marco-countdown ${overdue?'overdue':''}"> ${val}<small>${label}</small></div><div class="marco-dash-info"><h4>${m.critico ? '🚨 ' : ''}${m.descricao}</h4><p>${m.data} — ${m.step_titulo}</p></div></div>`; }).join(''); }
-  document.getElementById('dash-updates').innerHTML = atualizacoes.slice(0, 3).map(u => `<div class="mini-update"><div class="mini-update-urgency ${u.urgencia}"></div><div><div class="mini-update-title">${u.titulo}</div><div class="mini-update-meta">${u.data} · ${u.fonte}</div></div></div>`).join('');
+  if (!stats.proximos_marcos || stats.proximos_marcos.length === 0) {
+    marcosEl.innerHTML = '<p style="color:var(--text-muted);font-size:13px">Nenhum marco próximo.</p>';
+  } else {
+    marcosEl.innerHTML = stats.proximos_marcos.map(m => {
+      const dl = m.days_left;
+      const overdue = dl < 0;
+      const label = overdue ? 'atrasado' : (dl === 0 ? 'hoje' : 'dias');
+      const val = overdue ? Math.abs(dl) : dl;
+      return `<div class="marco-dash-card"><div class="marco-countdown ${overdue?'overdue':''}">${val}<small>${label}</small></div><div class="marco-dash-info"><h4>${m.critico ? '🚨 ' : ''}${m.descricao}</h4><p>${m.data} — ${m.step_titulo}</p></div></div>`;
+    }).join('');
+  }
+
+  document.getElementById('dash-updates').innerHTML = atualizacoes.slice(0, 3).map(u =>
+    `<div class="mini-update"><div class="mini-update-urgency ${u.urgencia}"></div><div><div class="mini-update-title">${u.titulo}</div><div class="mini-update-meta">${u.data} · ${u.fonte}</div></div></div>`
+  ).join('');
 }
+
+// ── TIMELINE ──────────────────────────────────────────────────────────────────
 async function loadTimeline() {
   try { steps = await api('/steps'); renderTimeline(); } catch(e) { console.error(e); }
 }
@@ -429,13 +660,19 @@ function renderTimeline() {
 function toggleCard(el) { el.classList.toggle('expanded'); }
 function statusLabel(s) { return {concluido:'✅ Concluído', em_andamento:'🔄 Em Andamento', pendente:'⏳ Pendente'}[s] || s; }
 function catLabel(c) { return {legislativo:'Legislativo', operacional:'Operacional', compliance:'Compliance', tecnologia:'Tecnologia'}[c] || c; }
+
+// ── ATUALIZAÇÕES ─────────────────────────────────────────────────────────────
 async function loadAtualizacoes() {
   try { atualizacoes = await api('/atualizacoes'); renderAtualizacoes(); } catch(e) { console.error(e); }
 }
 function renderAtualizacoes() {
-  document.getElementById('updates-container').innerHTML = atualizacoes.map(u => `<div class="update-card urgencia-${u.urgencia}"><div class="update-header"><span class="update-title">${u.titulo}</span><span class="badge badge-urgencia-${u.urgencia}">${urgLabel(u.urgencia)}</span>${u.relevante_decolar ? '<span class="badge badge-decolar">✈️ Decolar</span>' : ''}</div><div class="update-meta">📅 ${u.data} &nbsp;·&nbsp; 📰 ${u.fonte}</div><div class="update-desc">${u.descricao}</div><div style="margin-bottom:8px">${(u.tags||[]).map(t => `<span class="tag">#${t}</span>`).join('')}</div><a class="update-link" href="${u.url}" target="_blank" rel="noopener">🔗 Ver fonte ↗</a></div>`).join('');
+  document.getElementById('updates-container').innerHTML = atualizacoes.map(u =>
+    `<div class="update-card urgencia-${u.urgencia}"><div class="update-header"><span class="update-title">${u.titulo}</span><span class="badge badge-urgencia-${u.urgencia}">${urgLabel(u.urgencia)}</span>${u.relevante_decolar ? '<span class="badge badge-decolar">✈️ Decolar</span>' : ''}</div><div class="update-meta">📅 ${u.data} &nbsp;·&nbsp; 📰 ${u.fonte}</div><div class="update-desc">${u.descricao}</div><div style="margin-bottom:8px">${(u.tags||[]).map(t => `<span class="tag">#${t}</span>`).join('')}</div><a class="update-link" href="${u.url}" target="_blank" rel="noopener">🔗 Ver fonte ↗</a></div>`
+  ).join('');
 }
 function urgLabel(u) { return {alta:'🔴 Alta', media:'🟡 Média', baixa:'🟢 Baixa'}[u] || u; }
+
+// ── PLANOS ────────────────────────────────────────────────────────────────────
 async function loadPlanos() {
   try { [planos, steps] = await Promise.all([api('/planos'), api('/steps')]); populateStepSelect(); renderPlanos(); } catch(e) { console.error(e); }
 }
@@ -448,7 +685,11 @@ function renderPlanos() {
   const today = new Date(); today.setHours(0,0,0,0);
   const tbody = document.getElementById('planos-tbody');
   if (filtered.length === 0) { tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:24px;color:var(--text-muted)">Nenhum plano encontrado.</td></tr>'; return; }
-  tbody.innerHTML = filtered.map(p => { const overdue = p.status !== 'concluido' && p.prazo && new Date(p.prazo + 'T00:00:00') < today; const prazoDisplay = p.prazo ? (overdue ? `<span style="color:var(--red)">${p.prazo} ⚠️</span>` : p.prazo) : '—'; return `<tr><td style="max-width:220px"><strong>${p.titulo}</strong>${p.descricao ? `<div style="font-size:11px;color:var(--text-muted);margin-top:2px">${p.descricao.substring(0,80)}${p.descricao.length>80?'…':''}</div>` : ''}</td><td>${p.area}</td><td>${p.responsavel}</td><td>${prazoDisplay}</td><td><select class="status-select" onchange="updateStatus(${p.id}, this.value)"><option value="pendente" ${p.status==='pendente'?'selected':''}>⏳ Pendente</option><option value="em_andamento" ${p.status==='em_andamento'?'selected':''}>🔄 Em Andamento</option><option value="concluido" ${p.status==='concluido'?'selected':''}>✅ Concluído</option><option value="bloqueado" ${p.status==='bloqueado'?'selected':''}>🚫 Bloqueado</option></select></td><td><span class="badge badge-prioridade-${p.prioridade}">${prioLabel(p.prioridade)}</span></td><td><button class="btn btn-ghost" style="padding:4px 10px;font-size:12px;margin-right:4px" onclick="editPlano(${p.id})">✏️</button><button class="btn btn-danger" style="padding:4px 10px;font-size:12px" onclick="deletePlano(${p.id})">🗑️</button></td></tr>`; }).join('');
+  tbody.innerHTML = filtered.map(p => {
+    const overdue = p.status !== 'concluido' && p.prazo && new Date(p.prazo + 'T00:00:00') < today;
+    const prazoDisplay = p.prazo ? (overdue ? `<span style="color:var(--red)">${p.prazo} ⚠️</span>` : p.prazo) : '—';
+    return `<tr><td style="max-width:220px"><strong>${p.titulo}</strong>${p.descricao ? `<div style="font-size:11px;color:var(--text-muted);margin-top:2px">${p.descricao.substring(0,80)}${p.descricao.length>80?'…':''}</div>` : ''}</td><td>${p.area}</td><td>${p.responsavel}</td><td>${prazoDisplay}</td><td><select class="status-select" onchange="updateStatus(${p.id}, this.value)"><option value="pendente" ${p.status==='pendente'?'selected':''}>⏳ Pendente</option><option value="em_andamento" ${p.status==='em_andamento'?'selected':''}>🔄 Em Andamento</option><option value="concluido" ${p.status==='concluido'?'selected':''}>✅ Concluído</option><option value="bloqueado" ${p.status==='bloqueado'?'selected':''}>🚫 Bloqueado</option></select></td><td><span class="badge badge-prioridade-${p.prioridade}">${prioLabel(p.prioridade)}</span></td><td><button class="btn btn-ghost" style="padding:4px 10px;font-size:12px;margin-right:4px" onclick="editPlano(${p.id})">✏️</button><button class="btn btn-danger" style="padding:4px 10px;font-size:12px" onclick="deletePlano(${p.id})">🗑️</button></td></tr>`;
+  }).join('');
 }
 function prioLabel(p) { return {critica:'🔴 Crítica', alta:'🟠 Alta', media:'🟡 Média', baixa:'🟢 Baixa'}[p] || p; }
 async function updateStatus(id, newStatus) {
@@ -486,6 +727,8 @@ async function submitPlano(e) {
     closeModal(); renderPlanos(); if (loaded.dashboard) { stats = await api('/stats'); renderDashboard(); }
   } catch(err) { alert('Erro: ' + err.message); }
 }
+
+// ── REUNIÕES ──────────────────────────────────────────────────────────────────
 function handleDragOver(e) { e.preventDefault(); document.getElementById('upload-zone').classList.add('drag-over'); }
 function handleDragLeave(e) { document.getElementById('upload-zone').classList.remove('drag-over'); }
 function handleDrop(e) { e.preventDefault(); document.getElementById('upload-zone').classList.remove('drag-over'); const file = e.dataTransfer.files[0]; if (file) setSelectedFile(file); }
@@ -527,7 +770,12 @@ async function carregarListaReunioes() {
 function renderListaReunioes(lista) {
   const el = document.getElementById('lista-reunioes');
   if (!lista || lista.length === 0) { el.innerHTML = '<p style="color:var(--text-muted);font-size:13px;text-align:center;padding:16px">Nenhuma reunião carregada ainda.<br/>Faça upload de uma transcrição para começar.</p>'; return; }
-  el.innerHTML = lista.map(ru => { const pendentes = ru.sugestoes_pendentes || 0; const dt = ru.data_upload ? formatDatetime(ru.data_upload) : '—'; const sel = ru.id === reuniaoAtualId ? ' selected' : ''; return `<div class="reuniao-card${sel}" onclick="selecionarReuniao(${ru.id})"><div class="reuniao-card-name">${escHtml(ru.nome_arquivo || 'Reunião ' + ru.id)}${pendentes > 0 ? `<span class="badge-pendentes-sugestoes">${pendentes}</span>` : ''}</div><div class="reuniao-card-date">📅 ${dt}</div></div>`; }).join('');
+  el.innerHTML = lista.map(ru => {
+    const pendentes = ru.sugestoes_pendentes || 0;
+    const dt = ru.data_upload ? formatDatetime(ru.data_upload) : '—';
+    const sel = ru.id === reuniaoAtualId ? ' selected' : '';
+    return `<div class="reuniao-card${sel}" onclick="selecionarReuniao(${ru.id})"><div class="reuniao-card-name">${escHtml(ru.nome_arquivo || 'Reunião ' + ru.id)}${pendentes > 0 ? `<span class="badge-pendentes-sugestoes">${pendentes}</span>` : ''}</div><div class="reuniao-card-date">📅 ${dt}</div></div>`;
+  }).join('');
 }
 function formatDatetime(iso) { try { const d = new Date(iso); const dd = String(d.getDate()).padStart(2,'0'); const mm = String(d.getMonth()+1).padStart(2,'0'); const yyyy = d.getFullYear(); const hh = String(d.getHours()).padStart(2,'0'); const min = String(d.getMinutes()).padStart(2,'0'); return `${dd}/${mm}/${yyyy} ${hh}:${min}`; } catch(e) { return iso; } }
 function escHtml(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
@@ -556,17 +804,105 @@ function renderDetalheReuniao(reuniao) {
   const filename = escHtml(reuniao.nome_arquivo || 'Reunião ' + reuniao.id);
   const sugestoes = reuniao.planos_sugeridos || [];
   const pendentes = sugestoes.filter(s => s.status === 'pendente' || !s.status);
+  window._sugestoes = window._sugestoes || {};
+
   let sugestoesHtml = '';
-  if (sugestoes.length === 0) { sugestoesHtml = '<p style="color:var(--text-muted);font-size:13px;padding:12px 0">Nenhum plano de ação sugerido para esta reunião.</p>'; }
-  else { sugestoesHtml = sugestoes.map((pl, idx) => { const status = pl.status || 'pendente'; const isBadge = status === 'aprovado' ? '<span class="badge-aprovado">✅ Adicionado aos Planos</span>' : status === 'rejeitado' ? '<span class="badge-rejeitado">❌ Rejeitado</span>' : ''; const actions = status === 'pendente' ? `<button class="btn-aprovar" onclick="aprovarPlano(${reuniao.id},${idx})">✅ Aprovar e adicionar aos Planos</button><button class="btn-rejeitar" onclick="rejeitarPlano(${reuniao.id},${idx})">❌ Rejeitar</button>` : isBadge; return `<div class="plano-sugerido ${status !== 'pendente' ? status : ''}"><div class="plano-header"><span class="badge badge-prioridade-${pl.prioridade||'media'}">${prioLabel(pl.prioridade||'media')}</span><span class="plano-titulo">${escHtml(pl.titulo||'Plano sem título')}</span></div><div class="plano-meta"><span>🏢 ${escHtml(pl.area||'A definir')}</span><span>👤 ${escHtml(pl.responsavel||'A definir')}</span><span>📅 ${escHtml(pl.prazo||'A definir')}</span></div>${pl.descricao ? `<div class="plano-desc">${escHtml(pl.descricao)}</div>` : ''}<div class="plano-actions">${actions}</div></div>`; }).join(''); }
-  document.getElementById('reuniao-content').innerHTML = `<div class="reuniao-summary-card"><h3>📋 RESUMO DA REUNIÃO</h3><div class="summary-meta">${filename} &nbsp;·&nbsp; ${dt}</div>${participantes ? `<div class="summary-section"><h4>👥 Participantes</h4><ul>${participantes}</ul></div>` : ''}${topicos ? `<div class="summary-section"><h4>💬 Tópicos Discutidos</h4><ul>${topicos}</ul></div>` : ''}${decisoes ? `<div class="summary-section"><h4>✅ Decisões</h4><ul>${decisoes}</ul></div>` : ''}${proxPassos ? `<div class="summary-section"><h4>➡️ Próximos Passos</h4><ul>${proxPassos}</ul></div>` : ''}<div class="summary-footer"><span>⏱ Duração estimada: ${escHtml(String(duracao))}</span><span>📝 ${escHtml(String(palavras))} palavras</span></div></div><div><div class="sugeridos-header">🤖 PLANOS DE AÇÃO SUGERIDOS${pendentes.length > 0 ? `<span class="badge-pendentes-sugestoes">${pendentes.length} pendente${pendentes.length>1?'s':''}</span>` : ''}</div>${sugestoesHtml}</div>`;
+  if (sugestoes.length === 0) {
+    sugestoesHtml = '<p style="color:var(--text-muted);font-size:13px;padding:12px 0">Nenhum plano de ação sugerido para esta reunião.</p>';
+  } else {
+    sugestoesHtml = sugestoes.map((pl, idx) => {
+      const status = pl.status || 'pendente';
+      const prio = pl.prioridade || 'media';
+      const planoRealIdx = pl.idx !== undefined ? pl.idx : idx;
+      window._sugestoes[`${reuniao.id}_${planoRealIdx}`] = pl;
+      const isBadge = status === 'aprovado'
+        ? '<span class="badge-aprovado">✅ Adicionado aos Planos</span>'
+        : status === 'rejeitado'
+        ? '<span class="badge-rejeitado">❌ Rejeitado</span>'
+        : '';
+      const actions = status === 'pendente'
+        ? `<button class="btn-editar-sugestao" onclick="abrirSugestaoById(${reuniao.id}, ${planoRealIdx})">✏️ Editar</button>
+           <button class="btn-aprovar" onclick="aprovarPlano(${reuniao.id},${planoRealIdx})">✅ Aprovar e Adicionar</button>
+           <button class="btn-rejeitar" onclick="rejeitarPlano(${reuniao.id},${planoRealIdx})">❌ Rejeitar</button>`
+        : isBadge;
+      const prazoDisplay = escHtml(pl.prazo_display || pl.prazo || 'A definir');
+      const trecho = pl.trecho_origem ? `<div class="ps-trecho">🔍 Origem: "${escHtml(pl.trecho_origem)}"</div>` : '';
+      const descHtml = pl.descricao ? `<div class="ps-desc">📝 ${escHtml(pl.descricao)}</div>` : '';
+      const prioClass = status !== 'pendente' ? status : `prioridade-${prio}`;
+      return `<div class="plano-sugerido ${prioClass}">
+        <div class="ps-top"><span class="badge badge-prioridade-${prio}">${prioLabel(prio)}</span></div>
+        <div class="ps-titulo">${escHtml(pl.titulo || 'Plano sem título')}</div>
+        <div class="ps-fields">
+          <div class="ps-field"><label>🏢 Área</label><span>${escHtml(pl.area || 'A definir')}</span></div>
+          <div class="ps-field"><label>👤 Responsável</label><span>${escHtml(pl.responsavel || 'A definir')}</span></div>
+          <div class="ps-field"><label>📅 Prazo</label><span>${prazoDisplay}</span></div>
+        </div>
+        ${descHtml}${trecho}
+        <div class="ps-actions">${actions}</div>
+      </div>`;
+    }).join('');
+  }
+
+  document.getElementById('reuniao-content').innerHTML = `
+    <div class="reuniao-summary-card">
+      <h3>📋 RESUMO DA REUNIÃO</h3>
+      <div class="summary-meta">${filename} &nbsp;·&nbsp; ${dt}</div>
+      ${participantes ? `<div class="summary-section"><h4>👥 Participantes</h4><ul>${participantes}</ul></div>` : ''}
+      ${topicos ? `<div class="summary-section"><h4>💬 Tópicos Discutidos</h4><ul>${topicos}</ul></div>` : ''}
+      ${decisoes ? `<div class="summary-section"><h4>✅ Decisões</h4><ul>${decisoes}</ul></div>` : ''}
+      ${proxPassos ? `<div class="summary-section"><h4>➡️ Próximos Passos</h4><ul>${proxPassos}</ul></div>` : ''}
+      <div class="summary-footer"><span>⏱ Duração estimada: ${escHtml(String(duracao))}</span><span>📝 ${escHtml(String(palavras))} palavras</span></div>
+    </div>
+    <div>
+      <div class="sugeridos-header">🤖 PLANOS DE AÇÃO SUGERIDOS${pendentes.length > 0 ? `<span class="badge-pendentes-sugestoes">${pendentes.length} pendente${pendentes.length>1?'s':''}</span>` : ''}</div>
+      ${sugestoesHtml}
+    </div>
+  `;
 }
+// ── MODAL EDIÇÃO DE SUGESTÃO ──────────────────────────────────────────────────
+function abrirSugestaoById(reuniaoId, idx) {
+  const pl = (window._sugestoes || {})[`${reuniaoId}_${idx}`];
+  if (pl) abrirModalSugestao(reuniaoId, idx, pl);
+}
+function abrirModalSugestao(reuniaoId, planoIdx, plano) {
+  document.getElementById('sug-reuniao-id').value = reuniaoId;
+  document.getElementById('sug-plano-idx').value = planoIdx;
+  document.getElementById('sug-titulo').value = plano.titulo || '';
+  document.getElementById('sug-area').value = plano.area || '';
+  document.getElementById('sug-responsavel').value = plano.responsavel || '';
+  document.getElementById('sug-prazo').value = plano.prazo_sugerido || '';
+  document.getElementById('sug-prioridade').value = plano.prioridade || 'media';
+  document.getElementById('sug-descricao').value = plano.descricao || '';
+  document.getElementById('modal-sugestao-overlay').classList.add('open');
+}
+function fecharModalSugestao() { document.getElementById('modal-sugestao-overlay').classList.remove('open'); }
+async function salvarSugestao() {
+  const reuniaoId = document.getElementById('sug-reuniao-id').value;
+  const planoIdx = document.getElementById('sug-plano-idx').value;
+  const body = { titulo: document.getElementById('sug-titulo').value, area: document.getElementById('sug-area').value, responsavel: document.getElementById('sug-responsavel').value, prazo_sugerido: document.getElementById('sug-prazo').value || null, prioridade: document.getElementById('sug-prioridade').value, descricao: document.getElementById('sug-descricao').value };
+  const r = await fetch(`/api/reunioes/${reuniaoId}/sugestao/${planoIdx}`, { method: 'PATCH', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(body) });
+  if (!r.ok) throw new Error(await r.text());
+  fecharModalSugestao();
+  await selecionarReuniao(parseInt(reuniaoId));
+}
+async function salvarEAprovar() {
+  const reuniaoId = parseInt(document.getElementById('sug-reuniao-id').value);
+  const planoIdx = parseInt(document.getElementById('sug-plano-idx').value);
+  const body = { titulo: document.getElementById('sug-titulo').value, area: document.getElementById('sug-area').value, responsavel: document.getElementById('sug-responsavel').value, prazo_sugerido: document.getElementById('sug-prazo').value || null, prioridade: document.getElementById('sug-prioridade').value, descricao: document.getElementById('sug-descricao').value };
+  const r = await fetch(`/api/reunioes/${reuniaoId}/sugestao/${planoIdx}`, { method: 'PATCH', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(body) });
+  if (!r.ok) throw new Error(await r.text());
+  fecharModalSugestao();
+  await aprovarPlano(reuniaoId, planoIdx);
+}
+document.getElementById('modal-sugestao-overlay').addEventListener('click', function(e) { if (e.target === this) fecharModalSugestao(); });
 async function aprovarPlano(reuniaoId, planoIdx) {
   try { const r = await fetch('/api/reunioes/' + reuniaoId + '/aprovar/' + planoIdx, { method: 'POST' }); if (!r.ok) throw new Error(await r.text()); await selecionarReuniao(reuniaoId); await carregarListaReunioes(); if (loaded.planos) { planos = await api('/planos'); renderPlanos(); } if (loaded.dashboard) { stats = await api('/stats'); renderDashboard(); } } catch(err) { alert('Erro ao aprovar: ' + err.message); }
 }
 async function rejeitarPlano(reuniaoId, planoIdx) {
   try { const r = await fetch('/api/reunioes/' + reuniaoId + '/rejeitar/' + planoIdx, { method: 'POST' }); if (!r.ok) throw new Error(await r.text()); await selecionarReuniao(reuniaoId); await carregarListaReunioes(); if (loaded.dashboard) { stats = await api('/stats'); renderDashboard(); } } catch(err) { alert('Erro ao rejeitar: ' + err.message); }
 }
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
 loadSection('dashboard');
 </script>
 </body>
