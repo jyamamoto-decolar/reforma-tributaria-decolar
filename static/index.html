@@ -1,1 +1,573 @@
-<!-- see commit for full content - updated via push_files -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Reforma Tributária — Decolar</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0d1117;
+    --surface: #161b22;
+    --surface2: #21262d;
+    --border: #30363d;
+    --accent: #e8a838;
+    --accent-dim: rgba(232,168,56,0.15);
+    --green: #3fb950;
+    --green-dim: rgba(63,185,80,0.15);
+    --red: #f85149;
+    --red-dim: rgba(248,81,73,0.15);
+    --blue: #388bfd;
+    --blue-dim: rgba(56,139,253,0.15);
+    --yellow: #d29922;
+    --yellow-dim: rgba(210,153,34,0.15);
+    --gray: #8b949e;
+    --text: #e6edf3;
+    --text-muted: #8b949e;
+    --sidebar-w: 220px;
+    --orange: #f0883e;
+    --orange-dim: rgba(240,136,62,0.15);
+  }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); display: flex; height: 100vh; overflow: hidden; font-size: 14px; }
+  #sidebar { width: var(--sidebar-w); background: var(--surface); border-right: 1px solid var(--border); display: flex; flex-direction: column; flex-shrink: 0; }
+  .sidebar-logo { padding: 18px 16px 14px; border-bottom: 1px solid var(--border); }
+  .sidebar-logo h1 { font-size: 13px; font-weight: 700; color: var(--accent); letter-spacing: 0.5px; }
+  .sidebar-logo p { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+  .sidebar-badge { display: inline-block; background: var(--accent-dim); color: var(--accent); border: 1px solid var(--accent); border-radius: 10px; font-size: 10px; font-weight: 600; padding: 1px 7px; margin-top: 6px; }
+  nav { padding: 8px 0; flex: 1; }
+  nav button { width: 100%; text-align: left; background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 10px 16px; font-size: 13px; display: flex; align-items: center; gap: 10px; border-radius: 0; transition: background 0.15s, color 0.15s; }
+  nav button:hover { background: var(--surface2); color: var(--text); }
+  nav button.active { background: var(--accent-dim); color: var(--accent); font-weight: 600; border-right: 3px solid var(--accent); }
+  .sidebar-footer { padding: 12px 16px; border-top: 1px solid var(--border); font-size: 11px; color: var(--text-muted); }
+  #main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+  .topbar { height: 52px; background: var(--surface); border-bottom: 1px solid var(--border); display: flex; align-items: center; padding: 0 24px; gap: 12px; flex-shrink: 0; }
+  .topbar h2 { font-size: 16px; font-weight: 600; flex: 1; }
+  .topbar-badge { background: var(--red-dim); color: var(--red); border: 1px solid var(--red); border-radius: 10px; font-size: 11px; font-weight: 600; padding: 2px 10px; }
+  #content { flex: 1; overflow-y: auto; padding: 24px; }
+  .section { display: none; }
+  .section.active { display: block; }
+  .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px,1fr)); gap: 16px; margin-bottom: 24px; }
+  .kpi-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; }
+  .kpi-card .kpi-label { font-size: 12px; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .kpi-card .kpi-value { font-size: 32px; font-weight: 700; }
+  .kpi-card.green .kpi-value { color: var(--green); }
+  .kpi-card.yellow .kpi-value { color: var(--accent); }
+  .kpi-card.blue .kpi-value { color: var(--blue); }
+  .kpi-card.red .kpi-value { color: var(--red); }
+  .kpi-card.orange .kpi-value { color: var(--orange); }
+  .progress-section { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; margin-bottom: 24px; }
+  .progress-section h3 { font-size: 13px; color: var(--text-muted); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .progress-bar-bg { background: var(--surface2); border-radius: 4px; height: 10px; overflow: hidden; }
+  .progress-bar-fill { height: 100%; border-radius: 4px; background: linear-gradient(90deg, var(--green), var(--accent)); transition: width 1s ease; }
+  .progress-label { margin-top: 8px; font-size: 12px; color: var(--text-muted); }
+  .timeline { position: relative; }
+  .timeline::before { content: ''; position: absolute; left: 52px; top: 0; bottom: 0; width: 2px; background: var(--border); }
+  .timeline-item { display: flex; gap: 0; margin-bottom: 20px; position: relative; }
+  .timeline-year { width: 52px; flex-shrink: 0; display: flex; align-items: flex-start; justify-content: flex-end; padding-right: 16px; padding-top: 16px; }
+  .timeline-year span { font-size: 13px; font-weight: 700; color: var(--text-muted); }
+  .timeline-dot { width: 14px; height: 14px; border-radius: 50%; flex-shrink: 0; margin-top: 20px; margin-right: 16px; margin-left: -6px; z-index: 1; }
+  .dot-concluido { background: var(--green); box-shadow: 0 0 0 3px var(--green-dim); }
+  .dot-em_andamento { background: var(--accent); box-shadow: 0 0 0 3px var(--accent-dim); animation: pulse 2s infinite; }
+  .dot-pendente { background: var(--gray); }
+  @keyframes pulse { 0%,100% { box-shadow: 0 0 0 3px var(--accent-dim); } 50% { box-shadow: 0 0 0 6px var(--accent-dim); } }
+  .timeline-card { flex: 1; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; cursor: pointer; transition: border-color 0.2s; }
+  .timeline-card:hover { border-color: var(--blue); }
+  .timeline-card.current { border-color: var(--accent); background: #1a1508; }
+  .timeline-card.current .card-title { color: var(--accent); }
+  .card-header { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
+  .card-title { font-size: 14px; font-weight: 600; flex: 1; }
+  .badge { display: inline-block; border-radius: 10px; font-size: 11px; font-weight: 600; padding: 2px 8px; border: 1px solid transparent; }
+  .badge-concluido { background: var(--green-dim); color: var(--green); border-color: var(--green); }
+  .badge-em_andamento { background: var(--accent-dim); color: var(--accent); border-color: var(--accent); }
+  .badge-pendente { background: var(--surface2); color: var(--gray); border-color: var(--border); }
+  .badge-legislativo { background: var(--blue-dim); color: var(--blue); }
+  .badge-operacional { background: var(--orange-dim); color: var(--orange); }
+  .badge-compliance { background: var(--red-dim); color: var(--red); }
+  .badge-tecnologia { background: var(--green-dim); color: var(--green); }
+  .card-desc { font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-bottom: 0; max-height: 0; overflow: hidden; transition: max-height 0.3s ease, margin 0.3s; }
+  .timeline-card.expanded .card-desc { max-height: 600px; margin-bottom: 12px; }
+  .impacto-block { background: var(--surface2); border-left: 3px solid var(--accent); border-radius: 6px; padding: 10px 12px; margin-top: 10px; font-size: 12px; line-height: 1.5; }
+  .impacto-block .impacto-label { font-size: 11px; font-weight: 700; color: var(--accent); margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .marco-list { margin-top: 10px; }
+  .marco-item { display: flex; align-items: flex-start; gap: 8px; padding: 8px 10px; border-radius: 6px; margin-bottom: 6px; background: var(--surface2); font-size: 12px; }
+  .marco-item.critico { background: var(--red-dim); border: 1px solid var(--red); }
+  .marco-date { font-weight: 700; color: var(--accent); white-space: nowrap; }
+  .marco-critico-badge { color: var(--red); font-weight: 700; }
+  .updates-grid { display: flex; flex-direction: column; gap: 16px; }
+  .update-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; }
+  .update-card.urgencia-alta { border-left: 4px solid var(--red); }
+  .update-card.urgencia-media { border-left: 4px solid var(--accent); }
+  .update-card.urgencia-baixa { border-left: 4px solid var(--green); }
+  .update-header { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 8px; }
+  .update-title { font-size: 14px; font-weight: 600; flex: 1; }
+  .update-meta { font-size: 12px; color: var(--text-muted); margin-bottom: 8px; }
+  .update-desc { font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-bottom: 12px; }
+  .tag { background: var(--surface2); color: var(--text-muted); border-radius: 10px; font-size: 11px; padding: 2px 8px; display: inline-block; margin: 2px; }
+  .update-link { font-size: 12px; color: var(--blue); text-decoration: none; display: inline-flex; align-items: center; gap: 4px; }
+  .update-link:hover { text-decoration: underline; }
+  .badge-urgencia-alta { background: var(--red-dim); color: var(--red); border: 1px solid var(--red); }
+  .badge-urgencia-media { background: var(--yellow-dim); color: var(--yellow); border: 1px solid var(--yellow); }
+  .badge-urgencia-baixa { background: var(--green-dim); color: var(--green); border: 1px solid var(--green); }
+  .badge-decolar { background: var(--accent-dim); color: var(--accent); border: 1px solid var(--accent); }
+  .planos-toolbar { display: flex; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; align-items: center; }
+  .planos-toolbar select { background: var(--surface); border: 1px solid var(--border); color: var(--text); padding: 6px 10px; border-radius: 6px; font-size: 13px; }
+  .btn { padding: 7px 14px; border-radius: 6px; border: none; cursor: pointer; font-size: 13px; font-weight: 600; transition: opacity 0.15s; }
+  .btn:hover { opacity: 0.85; }
+  .btn-primary { background: var(--accent); color: #000; }
+  .btn-danger { background: var(--red-dim); color: var(--red); border: 1px solid var(--red); }
+  .btn-ghost { background: var(--surface2); color: var(--text); border: 1px solid var(--border); }
+  .planos-table { width: 100%; border-collapse: collapse; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+  .planos-table th { text-align: left; padding: 12px 14px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); border-bottom: 1px solid var(--border); background: var(--surface2); }
+  .planos-table td { padding: 12px 14px; font-size: 13px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  .planos-table tr:last-child td { border-bottom: none; }
+  .planos-table tr:hover td { background: var(--surface2); }
+  .badge-prioridade-critica { background: var(--red-dim); color: var(--red); border: 1px solid var(--red); }
+  .badge-prioridade-alta { background: var(--orange-dim); color: var(--orange); border: 1px solid var(--orange); }
+  .badge-prioridade-media { background: var(--yellow-dim); color: var(--yellow); border: 1px solid var(--yellow); }
+  .badge-prioridade-baixa { background: var(--green-dim); color: var(--green); border: 1px solid var(--green); }
+  .badge-status-pendente { background: var(--surface2); color: var(--gray); border: 1px solid var(--border); }
+  .badge-status-em_andamento { background: var(--blue-dim); color: var(--blue); border: 1px solid var(--blue); }
+  .badge-status-concluido { background: var(--green-dim); color: var(--green); border: 1px solid var(--green); }
+  .badge-status-bloqueado { background: var(--red-dim); color: var(--red); border: 1px solid var(--red); }
+  .status-select { background: var(--surface2); border: 1px solid var(--border); color: var(--text); padding: 4px 8px; border-radius: 6px; font-size: 12px; }
+  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); display: flex; align-items: center; justify-content: center; z-index: 1000; display: none; }
+  .modal-overlay.open { display: flex; }
+  .modal { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; width: 560px; max-width: 95vw; max-height: 90vh; overflow-y: auto; }
+  .modal h3 { font-size: 16px; font-weight: 700; margin-bottom: 18px; }
+  .form-group { margin-bottom: 14px; }
+  .form-group label { display: block; font-size: 12px; color: var(--text-muted); margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.4px; }
+  .form-group input, .form-group select, .form-group textarea { width: 100%; background: var(--surface2); border: 1px solid var(--border); color: var(--text); padding: 8px 10px; border-radius: 6px; font-size: 13px; font-family: inherit; }
+  .form-group textarea { min-height: 80px; resize: vertical; }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--blue); }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .modal-actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px; }
+  .section-title { font-size: 13px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; }
+  .dash-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+  @media (max-width: 700px) { .dash-grid { grid-template-columns: 1fr; } }
+  .marco-dash-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; display: flex; gap: 14px; align-items: flex-start; }
+  .marco-countdown { font-size: 28px; font-weight: 700; color: var(--accent); min-width: 54px; text-align: center; }
+  .marco-countdown.overdue { color: var(--red); }
+  .marco-countdown small { display: block; font-size: 10px; font-weight: 400; color: var(--text-muted); }
+  .marco-dash-info h4 { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+  .marco-dash-info p { font-size: 12px; color: var(--text-muted); }
+  .alert-box { background: var(--red-dim); border: 1px solid var(--red); border-radius: 10px; padding: 14px 18px; margin-bottom: 24px; display: flex; align-items: center; gap: 10px; }
+  .alert-box .alert-icon { font-size: 20px; }
+  .alert-box .alert-text { font-size: 13px; color: var(--red); }
+  .mini-update { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; margin-bottom: 8px; display: flex; gap: 10px; align-items: flex-start; }
+  .mini-update-urgency { width: 8px; height: 8px; border-radius: 50%; margin-top: 5px; flex-shrink: 0; }
+  .mini-update-urgency.alta { background: var(--red); }
+  .mini-update-urgency.media { background: var(--accent); }
+  .mini-update-urgency.baixa { background: var(--green); }
+  .mini-update-title { font-size: 13px; font-weight: 600; margin-bottom: 2px; }
+  .mini-update-meta { font-size: 11px; color: var(--text-muted); }
+  .empty-state { text-align: center; padding: 40px; color: var(--text-muted); }
+  .empty-state .empty-icon { font-size: 40px; margin-bottom: 10px; }
+  .spinner { display: inline-block; width: 20px; height: 20px; border: 2px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.7s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  /* REUNIOES */
+  .reuniao-upload-zone { border: 2px dashed var(--border); border-radius: 10px; padding: 24px; text-align: center; cursor: pointer; transition: border-color 0.2s, background 0.2s; margin-bottom: 16px; }
+  .reuniao-upload-zone:hover, .reuniao-upload-zone.drag-over { border-color: var(--accent); background: var(--accent-dim); }
+  .reuniao-upload-zone .upload-icon { font-size: 28px; margin-bottom: 8px; }
+  .reuniao-upload-zone .upload-title { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+  .reuniao-upload-zone .upload-sub { font-size: 12px; color: var(--text-muted); }
+  .reuniao-upload-filename { font-size: 13px; color: var(--accent); margin-top: 8px; font-weight: 600; }
+  .reunioes-layout { display: flex; gap: 20px; height: calc(100vh - 52px - 48px); }
+  .reunioes-sidebar { width: 320px; flex-shrink: 0; overflow-y: auto; padding-bottom: 24px; }
+  .reuniao-detail { flex: 1; overflow-y: auto; padding-bottom: 24px; }
+  .reuniao-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; margin-bottom: 10px; cursor: pointer; transition: border-color 0.2s; }
+  .reuniao-card:hover { border-color: var(--blue); }
+  .reuniao-card.selected { border-color: var(--accent); background: #1a1508; }
+  .reuniao-card-name { font-size: 13px; font-weight: 600; margin-bottom: 4px; word-break: break-all; }
+  .reuniao-card-date { font-size: 11px; color: var(--text-muted); }
+  .badge-pendentes-sugestoes { background: var(--orange-dim); color: var(--orange); border: 1px solid var(--orange); border-radius: 10px; font-size: 10px; font-weight: 600; padding: 1px 7px; margin-left: 6px; }
+  .plano-sugerido { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px; margin-bottom: 12px; transition: opacity 0.3s; }
+  .plano-sugerido.rejeitado { opacity: 0.45; }
+  .plano-sugerido .plano-header { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
+  .plano-sugerido .plano-titulo { font-size: 14px; font-weight: 600; flex: 1; }
+  .plano-sugerido .plano-meta { display: flex; gap: 16px; font-size: 12px; color: var(--text-muted); margin-bottom: 10px; flex-wrap: wrap; }
+  .plano-sugerido .plano-desc { font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-bottom: 10px; }
+  .plano-sugerido .trecho { font-style: italic; color: var(--text-muted); font-size: 12px; border-left: 3px solid var(--accent); padding-left: 10px; margin: 10px 0; }
+  .plano-sugerido .plano-actions { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .btn-aprovar { background: var(--green); color: #000; border: none; border-radius: 6px; padding: 8px 16px; cursor: pointer; font-weight: 600; font-size: 13px; }
+  .btn-aprovar:hover { opacity: 0.85; }
+  .btn-rejeitar { background: var(--surface2); color: var(--text-muted); border: 1px solid var(--border); border-radius: 6px; padding: 8px 16px; cursor: pointer; font-size: 13px; }
+  .btn-rejeitar:hover { border-color: var(--red); color: var(--red); }
+  .badge-aprovado { background: var(--green-dim); color: var(--green); border: 1px solid var(--green); border-radius: 10px; font-size: 11px; font-weight: 600; padding: 3px 10px; }
+  .badge-rejeitado { background: var(--surface2); color: var(--gray); border: 1px solid var(--border); border-radius: 10px; font-size: 11px; font-weight: 600; padding: 3px 10px; }
+  .reuniao-summary-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 20px; margin-bottom: 20px; }
+  .reuniao-summary-card h3 { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+  .reuniao-summary-card .summary-meta { font-size: 12px; color: var(--text-muted); margin-bottom: 16px; }
+  .summary-section { margin-bottom: 14px; }
+  .summary-section h4 { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); margin-bottom: 6px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+  .summary-section ul { list-style: none; padding: 0; }
+  .summary-section ul li { font-size: 13px; color: var(--text); padding: 3px 0; padding-left: 14px; position: relative; }
+  .summary-section ul li::before { content: '\u2022'; position: absolute; left: 0; color: var(--accent); }
+  .summary-footer { display: flex; gap: 20px; font-size: 12px; color: var(--text-muted); padding-top: 12px; border-top: 1px solid var(--border); margin-top: 14px; }
+  .sugeridos-header { font-size: 15px; font-weight: 700; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+  .badge-nav-pendentes { background: var(--orange-dim); color: var(--orange); border: 1px solid var(--orange); border-radius: 10px; font-size: 10px; font-weight: 600; padding: 1px 7px; }
+  .upload-progress { text-align: center; padding: 12px; color: var(--text-muted); font-size: 13px; display: flex; align-items: center; justify-content: center; gap: 8px; }
+</style>
+</head>
+<body>
+<aside id="sidebar">
+  <div class="sidebar-logo">
+    <h1>✈️ Reforma Tributária</h1>
+    <p>Acompanhamento Decolar</p>
+    <span class="sidebar-badge">Maio 2026</span>
+  </div>
+  <nav>
+    <button id="nav-dashboard" class="active" onclick="showSection('dashboard')">📊 Dashboard</button>
+    <button id="nav-timeline" onclick="showSection('timeline')">🗺️ Timeline</button>
+    <button id="nav-atualizacoes" onclick="showSection('atualizacoes')">📰 Atualizações</button>
+    <button id="nav-planos" onclick="showSection('planos')">✅ Planos de Ação</button>
+    <button id="nav-reunioes" onclick="showSection('reunioes')">📋 Reuniões <span id="badge-sugestoes-nav" class="badge-nav-pendentes" style="display:none">0</span></button>
+  </nav>
+  <div class="sidebar-footer">
+    EC 132/2023 + LC 214/2025<br/>
+    ⚠️ Próx. marco: <strong>01/08/2026</strong>
+  </div>
+</aside>
+<div id="main">
+  <header class="topbar">
+    <h2 id="topbar-title">Dashboard</h2>
+    <span class="topbar-badge">🚨 Deadline: 1 ago 2026</span>
+  </header>
+  <div id="content">
+    <div id="section-dashboard" class="section active">
+      <div id="alert-container"></div>
+      <div class="kpi-grid" id="kpi-grid">
+        <div class="kpi-card green"><div class="kpi-label">Steps Concluídos</div><div class="kpi-value" id="kpi-concluidos"><span class="spinner"></span></div></div>
+        <div class="kpi-card yellow"><div class="kpi-label">Em Andamento</div><div class="kpi-value" id="kpi-andamento"><span class="spinner"></span></div></div>
+        <div class="kpi-card blue"><div class="kpi-label">Pendentes</div><div class="kpi-value" id="kpi-pendentes"><span class="spinner"></span></div></div>
+        <div class="kpi-card red"><div class="kpi-label">Planos Críticos</div><div class="kpi-value" id="kpi-criticos"><span class="spinner"></span></div></div>
+      </div>
+      <div class="progress-section">
+        <h3>📈 Progresso Geral da Reforma</h3>
+        <div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-fill" style="width:0%"></div></div>
+        <div class="progress-label" id="progress-label">Carregando...</div>
+      </div>
+      <div class="dash-grid">
+        <div>
+          <div class="section-title">🚨 Próximos Marcos Críticos</div>
+          <div id="dash-marcos"><div class="empty-state"><div class="spinner"></div></div></div>
+        </div>
+        <div>
+          <div class="section-title">📰 Últimas Atualizações</div>
+          <div id="dash-updates"><div class="empty-state"><div class="spinner"></div></div></div>
+        </div>
+      </div>
+    </div>
+    <div id="section-timeline" class="section">
+      <div id="timeline-container" class="timeline">
+        <div class="empty-state"><div class="spinner"></div><p style="margin-top:12px">Carregando timeline...</p></div>
+      </div>
+    </div>
+    <div id="section-atualizacoes" class="section">
+      <div id="updates-container" class="updates-grid">
+        <div class="empty-state"><div class="spinner"></div><p style="margin-top:12px">Carregando atualizações...</p></div>
+      </div>
+    </div>
+    <div id="section-reunioes" class="section">
+      <div class="reunioes-layout" id="reunioes-layout">
+        <div class="reunioes-sidebar">
+          <div class="reuniao-upload-zone" id="upload-zone" onclick="document.getElementById('file-input').click()" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event)">
+            <div class="upload-icon">📁</div>
+            <div class="upload-title">Carregar transcrição</div>
+            <div class="upload-sub">.txt, .pdf ou .docx</div>
+            <div class="upload-sub" style="margin-top:6px;font-size:11px">Clique ou arraste aqui</div>
+            <div id="upload-filename" class="reuniao-upload-filename" style="display:none"></div>
+          </div>
+          <input type="file" id="file-input" accept=".txt,.pdf,.docx" style="display:none" onchange="handleFileSelect(event)"/>
+          <div id="upload-progress" class="upload-progress" style="display:none"><span class="spinner"></span> Analisando transcrição...</div>
+          <button id="btn-analisar" class="btn btn-primary" style="width:100%;margin-bottom:16px;display:none" onclick="iniciarUpload()">🔍 Analisar</button>
+          <div class="section-title">REUNIÕES CARREGADAS</div>
+          <div id="lista-reunioes"><div class="empty-state" style="padding:20px"><div class="spinner"></div></div></div>
+        </div>
+        <div class="reuniao-detail" id="reuniao-detail">
+          <div id="reuniao-empty" class="empty-state" style="padding:60px 40px">
+            <div class="empty-icon">📋</div>
+            <p>Selecione uma reunião para ver o resumo<br/>ou faça upload de uma transcrição.</p>
+          </div>
+          <div id="reuniao-content" style="display:none"></div>
+        </div>
+      </div>
+    </div>
+    <div id="section-planos" class="section">
+      <div class="planos-toolbar">
+        <button class="btn btn-primary" onclick="openModal()">+ Novo Plano</button>
+        <select id="filter-status" onchange="renderPlanos()">
+          <option value="">Todos os status</option>
+          <option value="pendente">Pendente</option>
+          <option value="em_andamento">Em Andamento</option>
+          <option value="concluido">Concluído</option>
+          <option value="bloqueado">Bloqueado</option>
+        </select>
+        <select id="filter-prioridade" onchange="renderPlanos()">
+          <option value="">Todas prioridades</option>
+          <option value="critica">Crítica</option>
+          <option value="alta">Alta</option>
+          <option value="media">Média</option>
+          <option value="baixa">Baixa</option>
+        </select>
+      </div>
+      <div style="overflow-x:auto">
+        <table class="planos-table">
+          <thead><tr><th>Título</th><th>Área</th><th>Responsável</th><th>Prazo</th><th>Status</th><th>Prioridade</th><th>Ações</th></tr></thead>
+          <tbody id="planos-tbody"><tr><td colspan="7" style="text-align:center;padding:24px;color:var(--text-muted)"><span class="spinner"></span></td></tr></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal">
+    <h3 id="modal-title">Novo Plano de Ação</h3>
+    <form id="plano-form" onsubmit="submitPlano(event)">
+      <input type="hidden" id="edit-id" value=""/>
+      <div class="form-group"><label>Título *</label><input type="text" id="f-titulo" required placeholder="Descrição breve do plano"/></div>
+      <div class="form-row">
+        <div class="form-group"><label>Área *</label><input type="text" id="f-area" required placeholder="TI / Fiscal / Jurídico..."/></div>
+        <div class="form-group"><label>Responsável *</label><input type="text" id="f-responsavel" required placeholder="Time ou pessoa"/></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Prazo *</label><input type="date" id="f-prazo" required/></div>
+        <div class="form-group"><label>Step Relacionado</label><select id="f-step"><option value="">-- nenhum --</option></select></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Status</label><select id="f-status"><option value="pendente">Pendente</option><option value="em_andamento">Em Andamento</option><option value="concluido">Concluído</option><option value="bloqueado">Bloqueado</option></select></div>
+        <div class="form-group"><label>Prioridade</label><select id="f-prioridade"><option value="baixa">Baixa</option><option value="media">Média</option><option value="alta">Alta</option><option value="critica">Crítica</option></select></div>
+      </div>
+      <div class="form-group"><label>Descrição</label><textarea id="f-descricao" placeholder="Detalhamento do plano..."></textarea></div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-ghost" onclick="closeModal()">Cancelar</button>
+        <button type="submit" class="btn btn-primary">Salvar Plano</button>
+      </div>
+    </form>
+  </div>
+</div>
+<script>
+let steps = [], atualizacoes = [], planos = [], stats = {};
+let currentSection = 'dashboard';
+let loaded = { dashboard: false, timeline: false, atualizacoes: false, planos: false, reunioes: false };
+let reuniaoAtualId = null;
+let reunioes = [];
+let selectedFile = null;
+const SECTION_TITLES = { dashboard: 'Dashboard', timeline: '🗺️ Timeline da Reforma', atualizacoes: '📰 Atualizações Normativas', planos: '✅ Planos de Ação Decolar', reunioes: '📋 Reuniões' };
+function showSection(name) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+  document.getElementById('section-' + name).classList.add('active');
+  document.getElementById('nav-' + name).classList.add('active');
+  document.getElementById('topbar-title').textContent = SECTION_TITLES[name];
+  currentSection = name;
+  if (!loaded[name]) { loadSection(name); }
+}
+function loadSection(name) {
+  loaded[name] = true;
+  if (name === 'dashboard') loadDashboard();
+  else if (name === 'timeline') loadTimeline();
+  else if (name === 'atualizacoes') loadAtualizacoes();
+  else if (name === 'planos') loadPlanos();
+  else if (name === 'reunioes') carregarListaReunioes();
+}
+async function api(path, opts = {}) {
+  const r = await fetch('/api' + path, opts);
+  if (!r.ok) throw new Error(await r.text());
+  return r.json();
+}
+async function loadDashboard() {
+  try {
+    [stats, atualizacoes, planos] = await Promise.all([api('/stats'), api('/atualizacoes'), api('/planos')]);
+    renderDashboard();
+  } catch(e) { console.error(e); }
+}
+function renderDashboard() {
+  document.getElementById('kpi-concluidos').textContent = stats.steps_concluidos;
+  document.getElementById('kpi-andamento').textContent = stats.steps_em_andamento;
+  document.getElementById('kpi-pendentes').textContent = stats.steps_pendentes;
+  document.getElementById('kpi-criticos').textContent = stats.planos_criticos;
+  if (stats.planos_sugeridos_pendentes !== undefined) {
+    let kpiSug = document.getElementById('kpi-sugestoes');
+    if (!kpiSug) {
+      const div = document.createElement('div');
+      div.className = 'kpi-card orange';
+      div.id = 'kpi-card-sugestoes';
+      div.innerHTML = '<div class="kpi-label">📋 Sugestões Pendentes</div><div class="kpi-value" id="kpi-sugestoes">0</div>';
+      document.getElementById('kpi-grid').appendChild(div);
+      kpiSug = document.getElementById('kpi-sugestoes');
+    }
+    kpiSug.textContent = stats.planos_sugeridos_pendentes;
+  }
+  const navBadge = document.getElementById('badge-sugestoes-nav');
+  if (navBadge && stats.planos_sugeridos_pendentes > 0) { navBadge.textContent = stats.planos_sugeridos_pendentes; navBadge.style.display = 'inline-block'; }
+  else if (navBadge) { navBadge.style.display = 'none'; }
+  const total = (stats.steps_concluidos||0) + (stats.steps_em_andamento||0) + (stats.steps_pendentes||0);
+  const pct = total > 0 ? Math.round(((stats.steps_concluidos||0) / total) * 100) : 0;
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('progress-label').textContent = `${pct}% concluído — ${stats.steps_concluidos} de ${total} etapas`;
+  const today = new Date(); today.setHours(0,0,0,0);
+  const vencidos = planos.filter(p => { if (p.status === 'concluido') return false; return p.prazo && new Date(p.prazo + 'T00:00:00') < today; });
+  const alertEl = document.getElementById('alert-container');
+  if (vencidos.length > 0) alertEl.innerHTML = `<div class="alert-box"><span class="alert-icon">⚠️</span><span class="alert-text"><strong>${vencidos.length} plano(s) com prazo vencido!</strong> Verifique os Planos de Ação.</span></div>`;
+  const marcosEl = document.getElementById('dash-marcos');
+  if (!stats.proximos_marcos || stats.proximos_marcos.length === 0) { marcosEl.innerHTML = '<p style="color:var(--text-muted);font-size:13px">Nenhum marco próximo.</p>'; }
+  else { marcosEl.innerHTML = stats.proximos_marcos.map(m => { const dl = m.days_left; const overdue = dl < 0; const label = overdue ? 'atrasado' : (dl === 0 ? 'hoje' : 'dias'); const val = overdue ? Math.abs(dl) : dl; return `<div class="marco-dash-card"><div class="marco-countdown ${overdue?'overdue':''}"> ${val}<small>${label}</small></div><div class="marco-dash-info"><h4>${m.critico ? '🚨 ' : ''}${m.descricao}</h4><p>${m.data} — ${m.step_titulo}</p></div></div>`; }).join(''); }
+  document.getElementById('dash-updates').innerHTML = atualizacoes.slice(0, 3).map(u => `<div class="mini-update"><div class="mini-update-urgency ${u.urgencia}"></div><div><div class="mini-update-title">${u.titulo}</div><div class="mini-update-meta">${u.data} · ${u.fonte}</div></div></div>`).join('');
+}
+async function loadTimeline() {
+  try { steps = await api('/steps'); renderTimeline(); } catch(e) { console.error(e); }
+}
+function renderTimeline() {
+  const container = document.getElementById('timeline-container');
+  container.innerHTML = steps.map(s => {
+    const isCurrent = s.ano === 2026;
+    const marcos = (s.marcos || []).map(m => `<div class="marco-item ${m.critico ? 'critico' : ''}"><span class="marco-date">${m.data}</span><span>${m.critico ? '<span class="marco-critico-badge">🚨 </span>' : ''}${m.descricao}</span></div>`).join('');
+    return `<div class="timeline-item"><div class="timeline-year"><span>${s.ano}</span></div><div class="timeline-dot dot-${s.status}"></div><div class="timeline-card${isCurrent ? ' current' : ''}" onclick="toggleCard(this)"><div class="card-header"><span class="card-title">${s.titulo}</span><span class="badge badge-${s.status}">${statusLabel(s.status)}</span><span class="badge badge-${s.categoria}">${catLabel(s.categoria)}</span></div><div class="card-desc"><p style="margin-bottom:8px;color:var(--text-muted);font-size:13px;line-height:1.5">${s.descricao}</p><div class="impacto-block"><div class="impacto-label">✈️ Impacto Decolar</div>${s.impacto_decolar}</div>${marcos ? '<div class="marco-list"><div style="font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;margin:10px 0 6px">Marcos</div>' + marcos + '</div>' : ''}</div></div></div>`;
+  }).join('');
+  document.querySelectorAll('.timeline-card.current').forEach(c => c.classList.add('expanded'));
+}
+function toggleCard(el) { el.classList.toggle('expanded'); }
+function statusLabel(s) { return {concluido:'✅ Concluído', em_andamento:'🔄 Em Andamento', pendente:'⏳ Pendente'}[s] || s; }
+function catLabel(c) { return {legislativo:'Legislativo', operacional:'Operacional', compliance:'Compliance', tecnologia:'Tecnologia'}[c] || c; }
+async function loadAtualizacoes() {
+  try { atualizacoes = await api('/atualizacoes'); renderAtualizacoes(); } catch(e) { console.error(e); }
+}
+function renderAtualizacoes() {
+  document.getElementById('updates-container').innerHTML = atualizacoes.map(u => `<div class="update-card urgencia-${u.urgencia}"><div class="update-header"><span class="update-title">${u.titulo}</span><span class="badge badge-urgencia-${u.urgencia}">${urgLabel(u.urgencia)}</span>${u.relevante_decolar ? '<span class="badge badge-decolar">✈️ Decolar</span>' : ''}</div><div class="update-meta">📅 ${u.data} &nbsp;·&nbsp; 📰 ${u.fonte}</div><div class="update-desc">${u.descricao}</div><div style="margin-bottom:8px">${(u.tags||[]).map(t => `<span class="tag">#${t}</span>`).join('')}</div><a class="update-link" href="${u.url}" target="_blank" rel="noopener">🔗 Ver fonte ↗</a></div>`).join('');
+}
+function urgLabel(u) { return {alta:'🔴 Alta', media:'🟡 Média', baixa:'🟢 Baixa'}[u] || u; }
+async function loadPlanos() {
+  try { [planos, steps] = await Promise.all([api('/planos'), api('/steps')]); populateStepSelect(); renderPlanos(); } catch(e) { console.error(e); }
+}
+function renderPlanos() {
+  const fs = document.getElementById('filter-status').value;
+  const fp = document.getElementById('filter-prioridade').value;
+  let filtered = planos;
+  if (fs) filtered = filtered.filter(p => p.status === fs);
+  if (fp) filtered = filtered.filter(p => p.prioridade === fp);
+  const today = new Date(); today.setHours(0,0,0,0);
+  const tbody = document.getElementById('planos-tbody');
+  if (filtered.length === 0) { tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:24px;color:var(--text-muted)">Nenhum plano encontrado.</td></tr>'; return; }
+  tbody.innerHTML = filtered.map(p => { const overdue = p.status !== 'concluido' && p.prazo && new Date(p.prazo + 'T00:00:00') < today; const prazoDisplay = p.prazo ? (overdue ? `<span style="color:var(--red)">${p.prazo} ⚠️</span>` : p.prazo) : '—'; return `<tr><td style="max-width:220px"><strong>${p.titulo}</strong>${p.descricao ? `<div style="font-size:11px;color:var(--text-muted);margin-top:2px">${p.descricao.substring(0,80)}${p.descricao.length>80?'…':''}</div>` : ''}</td><td>${p.area}</td><td>${p.responsavel}</td><td>${prazoDisplay}</td><td><select class="status-select" onchange="updateStatus(${p.id}, this.value)"><option value="pendente" ${p.status==='pendente'?'selected':''}>⏳ Pendente</option><option value="em_andamento" ${p.status==='em_andamento'?'selected':''}>🔄 Em Andamento</option><option value="concluido" ${p.status==='concluido'?'selected':''}>✅ Concluído</option><option value="bloqueado" ${p.status==='bloqueado'?'selected':''}>🚫 Bloqueado</option></select></td><td><span class="badge badge-prioridade-${p.prioridade}">${prioLabel(p.prioridade)}</span></td><td><button class="btn btn-ghost" style="padding:4px 10px;font-size:12px;margin-right:4px" onclick="editPlano(${p.id})">✏️</button><button class="btn btn-danger" style="padding:4px 10px;font-size:12px" onclick="deletePlano(${p.id})">🗑️</button></td></tr>`; }).join('');
+}
+function prioLabel(p) { return {critica:'🔴 Crítica', alta:'🟠 Alta', media:'🟡 Média', baixa:'🟢 Baixa'}[p] || p; }
+async function updateStatus(id, newStatus) {
+  try { await api(`/planos/${id}`, { method: 'PUT', headers: {'Content-Type':'application/json'}, body: JSON.stringify({status: newStatus}) }); const idx = planos.findIndex(p => p.id === id); if (idx >= 0) planos[idx].status = newStatus; if (loaded.dashboard) { stats = await api('/stats'); renderDashboard(); } } catch(e) { alert('Erro ao atualizar: ' + e.message); }
+}
+async function deletePlano(id) {
+  if (!confirm('Excluir este plano?')) return;
+  try { await api(`/planos/${id}`, { method: 'DELETE' }); planos = planos.filter(p => p.id !== id); renderPlanos(); if (loaded.dashboard) { stats = await api('/stats'); renderDashboard(); } } catch(e) { alert('Erro ao excluir: ' + e.message); }
+}
+function editPlano(id) {
+  const p = planos.find(x => x.id === id); if (!p) return;
+  document.getElementById('modal-title').textContent = 'Editar Plano';
+  document.getElementById('edit-id').value = id;
+  document.getElementById('f-titulo').value = p.titulo;
+  document.getElementById('f-area').value = p.area;
+  document.getElementById('f-responsavel').value = p.responsavel;
+  document.getElementById('f-prazo').value = p.prazo || '';
+  document.getElementById('f-status').value = p.status;
+  document.getElementById('f-prioridade').value = p.prioridade;
+  document.getElementById('f-descricao').value = p.descricao || '';
+  document.getElementById('f-step').value = p.step_relacionado_id || '';
+  document.getElementById('modal-overlay').classList.add('open');
+}
+function openModal() { document.getElementById('modal-title').textContent = 'Novo Plano de Ação'; document.getElementById('plano-form').reset(); document.getElementById('edit-id').value = ''; document.getElementById('modal-overlay').classList.add('open'); }
+function closeModal() { document.getElementById('modal-overlay').classList.remove('open'); }
+document.getElementById('modal-overlay').addEventListener('click', function(e) { if (e.target === this) closeModal(); });
+function populateStepSelect() { const sel = document.getElementById('f-step'); sel.innerHTML = '<option value="">-- nenhum --</option>' + steps.map(s => `<option value="${s.id}">${s.ano} — ${s.titulo.substring(0,50)}</option>`).join(''); }
+async function submitPlano(e) {
+  e.preventDefault();
+  const editId = document.getElementById('edit-id').value;
+  const body = { titulo: document.getElementById('f-titulo').value, area: document.getElementById('f-area').value, responsavel: document.getElementById('f-responsavel').value, prazo: document.getElementById('f-prazo').value, status: document.getElementById('f-status').value, prioridade: document.getElementById('f-prioridade').value, descricao: document.getElementById('f-descricao').value, step_relacionado_id: document.getElementById('f-step').value ? parseInt(document.getElementById('f-step').value) : null };
+  try {
+    if (editId) { const updated = await api(`/planos/${editId}`, { method: 'PUT', headers: {'Content-Type':'application/json'}, body: JSON.stringify(body) }); const idx = planos.findIndex(p => p.id === parseInt(editId)); if (idx >= 0) planos[idx] = updated; }
+    else { const created = await api('/planos', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(body) }); planos.push(created); }
+    closeModal(); renderPlanos(); if (loaded.dashboard) { stats = await api('/stats'); renderDashboard(); }
+  } catch(err) { alert('Erro: ' + err.message); }
+}
+function handleDragOver(e) { e.preventDefault(); document.getElementById('upload-zone').classList.add('drag-over'); }
+function handleDragLeave(e) { document.getElementById('upload-zone').classList.remove('drag-over'); }
+function handleDrop(e) { e.preventDefault(); document.getElementById('upload-zone').classList.remove('drag-over'); const file = e.dataTransfer.files[0]; if (file) setSelectedFile(file); }
+function handleFileSelect(e) { const file = e.target.files[0]; if (file) setSelectedFile(file); }
+function setSelectedFile(file) { selectedFile = file; const fnEl = document.getElementById('upload-filename'); fnEl.textContent = '📄 ' + file.name; fnEl.style.display = 'block'; document.getElementById('btn-analisar').style.display = 'block'; }
+async function iniciarUpload() {
+  if (!selectedFile) return;
+  document.getElementById('btn-analisar').style.display = 'none';
+  document.getElementById('upload-progress').style.display = 'flex';
+  document.getElementById('upload-zone').style.pointerEvents = 'none';
+  try {
+    await uploadTranscricao(selectedFile);
+    selectedFile = null;
+    document.getElementById('upload-filename').style.display = 'none';
+    document.getElementById('upload-filename').textContent = '';
+    document.getElementById('file-input').value = '';
+  } catch(err) { alert('Erro no upload: ' + err.message); document.getElementById('btn-analisar').style.display = 'block'; }
+  finally { document.getElementById('upload-progress').style.display = 'none'; document.getElementById('upload-zone').style.pointerEvents = ''; }
+}
+async function uploadTranscricao(file) {
+  const formData = new FormData(); formData.append('file', file);
+  const r = await fetch('/api/reunioes/upload', { method: 'POST', body: formData });
+  if (!r.ok) throw new Error(await r.text());
+  const reuniao = await r.json();
+  await carregarListaReunioes();
+  selecionarReuniao(reuniao.id);
+}
+async function carregarListaReunioes() {
+  try {
+    const r = await fetch('/api/reunioes');
+    if (!r.ok) throw new Error(await r.text());
+    reunioes = await r.json();
+    renderListaReunioes(reunioes);
+    const pendentes = reunioes.reduce((acc, ru) => acc + ((ru.sugestoes_pendentes) || 0), 0);
+    const navBadge = document.getElementById('badge-sugestoes-nav');
+    if (navBadge) { navBadge.textContent = pendentes; navBadge.style.display = pendentes > 0 ? 'inline-block' : 'none'; }
+  } catch(e) { document.getElementById('lista-reunioes').innerHTML = '<p style="color:var(--text-muted);font-size:13px;text-align:center;padding:16px">Nenhuma reunião carregada ainda.<br/>Faça upload de uma transcrição para começar.</p>'; }
+}
+function renderListaReunioes(lista) {
+  const el = document.getElementById('lista-reunioes');
+  if (!lista || lista.length === 0) { el.innerHTML = '<p style="color:var(--text-muted);font-size:13px;text-align:center;padding:16px">Nenhuma reunião carregada ainda.<br/>Faça upload de uma transcrição para começar.</p>'; return; }
+  el.innerHTML = lista.map(ru => { const pendentes = ru.sugestoes_pendentes || 0; const dt = ru.data_upload ? formatDatetime(ru.data_upload) : '—'; const sel = ru.id === reuniaoAtualId ? ' selected' : ''; return `<div class="reuniao-card${sel}" onclick="selecionarReuniao(${ru.id})"><div class="reuniao-card-name">${escHtml(ru.nome_arquivo || 'Reunião ' + ru.id)}${pendentes > 0 ? `<span class="badge-pendentes-sugestoes">${pendentes}</span>` : ''}</div><div class="reuniao-card-date">📅 ${dt}</div></div>`; }).join('');
+}
+function formatDatetime(iso) { try { const d = new Date(iso); const dd = String(d.getDate()).padStart(2,'0'); const mm = String(d.getMonth()+1).padStart(2,'0'); const yyyy = d.getFullYear(); const hh = String(d.getHours()).padStart(2,'0'); const min = String(d.getMinutes()).padStart(2,'0'); return `${dd}/${mm}/${yyyy} ${hh}:${min}`; } catch(e) { return iso; } }
+function escHtml(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+async function selecionarReuniao(id) {
+  reuniaoAtualId = id;
+  document.getElementById('reuniao-empty').style.display = 'none';
+  document.getElementById('reuniao-content').style.display = 'block';
+  document.getElementById('reuniao-content').innerHTML = '<div class="empty-state"><div class="spinner"></div><p style="margin-top:12px">Carregando resumo...</p></div>';
+  try {
+    const r = await fetch('/api/reunioes/' + id);
+    if (!r.ok) throw new Error(await r.text());
+    const reuniao = await r.json();
+    renderDetalheReuniao(reuniao);
+    renderListaReunioes(reunioes);
+  } catch(err) { document.getElementById('reuniao-content').innerHTML = '<p style="color:var(--red);padding:20px">Erro ao carregar reunião: ' + escHtml(err.message) + '</p>'; }
+}
+function renderDetalheReuniao(reuniao) {
+  const resumo = reuniao.resumo || {};
+  const participantes = (resumo.participantes || []).map(p => `<li>${escHtml(p)}</li>`).join('');
+  const topicos = (resumo.topicos_principais || []).map(t => `<li>${escHtml(t)}</li>`).join('');
+  const decisoes = (resumo.decisoes || []).map(d => `<li>${escHtml(d)}</li>`).join('');
+  const proxPassos = (resumo.proximos_passos || []).map(p => `<li>${escHtml(p)}</li>`).join('');
+  const duracao = resumo.duracao_estimada || '—';
+  const palavras = resumo.total_palavras || '—';
+  const dt = reuniao.data_upload ? formatDatetime(reuniao.data_upload) : '—';
+  const filename = escHtml(reuniao.nome_arquivo || 'Reunião ' + reuniao.id);
+  const sugestoes = reuniao.planos_sugeridos || [];
+  const pendentes = sugestoes.filter(s => s.status === 'pendente' || !s.status);
+  let sugestoesHtml = '';
+  if (sugestoes.length === 0) { sugestoesHtml = '<p style="color:var(--text-muted);font-size:13px;padding:12px 0">Nenhum plano de ação sugerido para esta reunião.</p>'; }
+  else { sugestoesHtml = sugestoes.map((pl, idx) => { const status = pl.status || 'pendente'; const isBadge = status === 'aprovado' ? '<span class="badge-aprovado">✅ Adicionado aos Planos</span>' : status === 'rejeitado' ? '<span class="badge-rejeitado">❌ Rejeitado</span>' : ''; const actions = status === 'pendente' ? `<button class="btn-aprovar" onclick="aprovarPlano(${reuniao.id},${idx})">✅ Aprovar e adicionar aos Planos</button><button class="btn-rejeitar" onclick="rejeitarPlano(${reuniao.id},${idx})">❌ Rejeitar</button>` : isBadge; return `<div class="plano-sugerido ${status !== 'pendente' ? status : ''}"><div class="plano-header"><span class="badge badge-prioridade-${pl.prioridade||'media'}">${prioLabel(pl.prioridade||'media')}</span><span class="plano-titulo">${escHtml(pl.titulo||'Plano sem título')}</span></div><div class="plano-meta"><span>🏢 ${escHtml(pl.area||'A definir')}</span><span>👤 ${escHtml(pl.responsavel||'A definir')}</span><span>📅 ${escHtml(pl.prazo||'A definir')}</span></div>${pl.descricao ? `<div class="plano-desc">${escHtml(pl.descricao)}</div>` : ''}<div class="plano-actions">${actions}</div></div>`; }).join(''); }
+  document.getElementById('reuniao-content').innerHTML = `<div class="reuniao-summary-card"><h3>📋 RESUMO DA REUNIÃO</h3><div class="summary-meta">${filename} &nbsp;·&nbsp; ${dt}</div>${participantes ? `<div class="summary-section"><h4>👥 Participantes</h4><ul>${participantes}</ul></div>` : ''}${topicos ? `<div class="summary-section"><h4>💬 Tópicos Discutidos</h4><ul>${topicos}</ul></div>` : ''}${decisoes ? `<div class="summary-section"><h4>✅ Decisões</h4><ul>${decisoes}</ul></div>` : ''}${proxPassos ? `<div class="summary-section"><h4>➡️ Próximos Passos</h4><ul>${proxPassos}</ul></div>` : ''}<div class="summary-footer"><span>⏱ Duração estimada: ${escHtml(String(duracao))}</span><span>📝 ${escHtml(String(palavras))} palavras</span></div></div><div><div class="sugeridos-header">🤖 PLANOS DE AÇÃO SUGERIDOS${pendentes.length > 0 ? `<span class="badge-pendentes-sugestoes">${pendentes.length} pendente${pendentes.length>1?'s':''}</span>` : ''}</div>${sugestoesHtml}</div>`;
+}
+async function aprovarPlano(reuniaoId, planoIdx) {
+  try { const r = await fetch('/api/reunioes/' + reuniaoId + '/aprovar/' + planoIdx, { method: 'POST' }); if (!r.ok) throw new Error(await r.text()); await selecionarReuniao(reuniaoId); await carregarListaReunioes(); if (loaded.planos) { planos = await api('/planos'); renderPlanos(); } if (loaded.dashboard) { stats = await api('/stats'); renderDashboard(); } } catch(err) { alert('Erro ao aprovar: ' + err.message); }
+}
+async function rejeitarPlano(reuniaoId, planoIdx) {
+  try { const r = await fetch('/api/reunioes/' + reuniaoId + '/rejeitar/' + planoIdx, { method: 'POST' }); if (!r.ok) throw new Error(await r.text()); await selecionarReuniao(reuniaoId); await carregarListaReunioes(); if (loaded.dashboard) { stats = await api('/stats'); renderDashboard(); } } catch(err) { alert('Erro ao rejeitar: ' + err.message); }
+}
+loadSection('dashboard');
+</script>
+</body>
+</html>
